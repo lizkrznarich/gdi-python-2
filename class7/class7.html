@@ -88,6 +88,10 @@
                 margin: 10px;
             }
 
+            .reveal section ul li {
+                margin-bottom: .4em;
+            }
+
 			@media print
 			{
 				.no-print, .no-print *
@@ -151,7 +155,7 @@
                         <li>Class 9: Error handling
                         <li>Class 10: HTTP requests
                         <li>Class 11: Intro to Python frameworks & object-oriented Python
-                        <li>Class 12: Your own app with Django!
+                        <li>Class 12: Your own app with Django! (get data from an external API and create a visualization)
                     </ul>
                     <p>(note: Python 1 series included classes 1-6)</p>
                 </section>
@@ -174,7 +178,7 @@
                         <li>Name
                         <li>Preferred pronouns
                         <li>Location
-                        <li>Programming experience & did you take the Python 1 class series?
+                        <li>Programming experience & did you participate in the Python 1 class series?
                         <li>What do you hope to learn in this class series?
                     </ul>
                 </section>
@@ -192,26 +196,25 @@
                     <h2>Repl.it setup</h2>
                 </section>
                 <section>
-                    <h3>Coding Python imn Repl.it</h3>
+                    <h3>Coding Python in Repl.it</h3>
 
                     <p>Installing/running Python on lots of different systems/versions is tricky.</p>
                     <p>In this class, we'll use Replit, an online editor.</p>
 
-                    <p><a href="https://repl.it/languages/python3" target="_blank">
-                        https://repl.it/languages/python3
-                        </a>
-                    </p>
+                    <h3><a href="https://replit.com/" target="_blank">
+                        https://replit.com</a>
+                    </h3>
                 </section>
                 <section>
                     <h3>Repl.it setup</h3>
                     <ul style="font-size:1.0em;">
                         <li>Create a <a href="https://replit.com/">Replit account</a>
-                        <li>Once you're logged in, create a new Python repl
+                        <li>Once you're logged in, create a new Python Repl
                     </ul>
                     <img src="../images/create-repl.png" alt="screenshot of repl" width="800px">
                 </section>
                 <section>
-                    <h3>Using Repl.it</h3>
+                    <h3>Using Replit</h3>
                     <p>Type code in the left panel (main.py file) & click "Run". Output is shown in the right panel (console).</p>
                     <p>You can also type code directly in the console panel (press Enter key to run).</p>
                     <img src="../images/replit-run-code.png" alt="screenshot of repl" width="780px">
@@ -279,6 +282,21 @@
                             <td class="anatomy_of_call_operand">Expression
                     </table>
                     </div>
+                </section>
+                <section>
+                    <h3>Naming conventions for variables & functions</h3>
+                    <ul>
+                        <li>Use a lowercase single letter (variables only), word, or words
+                        <li>Separate words with underscores
+                        <li>Make names meaningful, ex <code>first_name</code> rather than <code>fn</code>
+                    </ul>
+                    <br><br>
+                    <h4>Examples</h4>
+                    <ul>
+                        <li><code>m</code> (variables only)
+                        <li><code>hobby</code>
+                        <li><code>my_fav_hobby</code>
+                    </ul>
                 </section>
                 <section>
                     <h3>Data structures</h3>
@@ -456,6 +474,40 @@
                     </code></pre>
                 </section>
                 <section>
+                    <h3>Comparison operators</h3>
+
+                    <table>
+                        <thead>
+                            <tr><td>Operator  </td><td>Meaning </td><td>True expressions
+                            </td></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>==    </td><td>Equality </td><td><code>32 == 32</code>
+                            <tr><td>!=     </td><td>Inequality </td><td><code>30 != 32</code>
+                            <tr><td>&gt;  </td><td>Greater than </td><td> <code>60 &gt;= 32	</code>
+                            <tr><td>&gt;=</td><td>Greater than or equal </td><td><code>60 &gt;= 32	</code>, <code>32 &gt;= 32</code>
+                            </tr><tr><td>&lt;   </td><td>Less than </td><td><code>20 &lt; 32</code>
+                            </tr><tr><td>&lt;= </td><td>Less than or equal </td><td><code>20 &lt; 32</code>, <code>32 &lt;= 32</code>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p class="smaller">⚠️ Common mistake: Do not confuse <code>=</code> (the assignment operator) with <code>==</code> (the equality operator).</p>
+                </section>
+                <section>
+                    <h3>Logical operators</h3>
+
+                    <table>
+                        <thead>
+                            <tr><th>Operator<th style="width:40%">True expressions <th>Meaning
+                        <tbody>
+                            <tr><td><code>and</code> <td> <code>4 &gt; 0 and -2 &lt; 0</code> <td class="smaller">Evaluates to <code>True</code> if both cconditions are true; otherwise evaluates to <code>False</code>.
+                            <tr><td><code>or</code>  <td> <code>4 &gt; 0 or -2 &gt; 0 </code> <td class="smaller">Evaluates to <code>True</code> if either condition is true; evaluates to <code>False</code> only if both are false.
+                            <tr><td><code>not</code> <td> <code>not (5 == 0)</code> <td class="smaller">Evaluates to <code>True</code> if condition is false; evaluates to <code>False</code> if condition is true.
+                       </tbody>
+                    </table>
+                    <p class="smaller">W3Schools has a handy <a href="https://www.w3schools.com/python/python_operators.asp">Python operators reference</a></p>
+                </section>
+                <section>
                     <h3>if/elif/else statements summary</h3>
 
                     <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
@@ -548,6 +600,13 @@
                     sum_up_squares(1, 5)
                     </code></pre>
                 </section>
+                <section>
+                    <h3>Python 1 materials</h3>
+
+                    <p>Find all the slides & exercises from Python 1 at</br>
+                    <a href="https://lizkrznarich.github.io/gdi-python-1">https://lizkrznarich.github.io/gdi-python-1</a>
+                    </p>
+                </section>
                 <section class="heading-only">
                     <h2>Working with files</h2>
                 </section>
@@ -604,29 +663,21 @@
                     </code></pre>
                 </section>
                 <section>
-                    <h3>Reading CSV files with headers</h3>
-                    <p>Python has a built-in CSV module that includes many features used for reading/writing CSV files.</p>
-                    <b>Open a CSV and read its contents</b>
-                    <pre style="font-size:0.9em"><code data-trim data-noescape class="python">
-                        # import the csv module
-                        import csv
-                        # open the file
-                        with open('fun_spreadsheet.csv') as my_file:
-                            # load the contents of the CSV file into a variable
-                            csv_reader = csv.DictReader(my_file)
-                            # CSV is read as a dictionary with column headers as keys!
-                            # now we can loop through the rows in the file
-                            # and get the values from specific columns
-                            for row in csv_reader:
-                                print(row)
-                    </code></pre>
-                </section>
-                <section>
                     <h3>Exercise review: Reading from a CSV file</h3>
                     <p>A simple grade calculator</p>
                     <ul>
                         <li><a target="_blank" href="https://replit.com/@lizkrznarich/Class5Ex2CsvData">Repl: Class5Ex2CsvData</a></li>
                     </ul>
+                </section>
+                <section>
+                    <h3>Forking Replit files</h3>
+                    <ol style="font-size:1.0em;">
+                        <li>Click the link to the Replit, ex <a href="https://replit.com/@lizkrznarich/Class6Ex2CsvDataHeaders" target="_blank">https://replit.com/@lizkrznarich/Class6Ex2CsvDataHeaders</a>
+                        <li>Click Fork Repl<br>
+                            <img src="../images/fork-repl.png" width="700">
+                        <li>Click Edit in workspace
+                            <img src="../images/edit-in-workspace.png" width="700">
+                    </ol>
                 </section>
                 <section class="heading-only">
                     <h2>Writing CSV files</h2>
@@ -650,22 +701,33 @@
                             writer.writerows(my_list)
                     </code></pre>
                 </section>
+                <section class="heading-only">
+                    <h2>CSV files with headers</h2>
+                </section>
+                <section>
+                    <h3>Reading CSV files with headers</h3>
+                    <p>Python has a built-in CSV module that includes many features used for reading/writing CSV files.</p>
+                    <b>Open a CSV and read its contents</b>
+                    <pre style="font-size:0.9em"><code data-trim data-noescape class="python">
+                        # import the csv module
+                        import csv
+                        # open the file
+                        with open('fun_spreadsheet.csv') as my_file:
+                            # load the contents of the CSV file into a variable
+                            csv_reader = csv.DictReader(my_file)
+                            # CSV is read as a dictionary with column headers as keys!
+                            # now we can loop through the rows in the file
+                            # and get the values from specific columns
+                            for row in csv_reader:
+                                print(row)
+                    </code></pre>
+                </section>
                 <section>
                     <h3>Exercise review: CSV with headers</h3>
                     <p>Let's re-visit our gradebook exercise...</p>
                     <ul>
                         <li><a target="_blank" href="https://replit.com/@lizkrznarich/Class6Ex2CsvDataHeaders">Repl: Class6Ex2CsvDataHeaders</a></li>
                     </ul>
-                </section>
-                <section>
-                    <h3>Forking Replit files</h3>
-                    <ol style="font-size:1.0em;">
-                        <li>Click the link to the Replit, ex <a href="https://replit.com/@lizkrznarich/Class6Ex2CsvDataHeaders" target="_blank">https://replit.com/@lizkrznarich/Class6Ex2CsvDataHeaders</a>
-                        <li>Click Fork Repl<br>
-                            <img src="../images/fork-repl.png" width="700">
-                        <li>Click Edit in workspace
-                            <img src="../images/edit-in-workspace.png" width="700">
-                    </ol>
                 </section>
                 <section>
                     <h3>Exercise: Multiple files</h3>
