@@ -353,7 +353,7 @@
                 <section>
                     <h2>Built-in functions</h2>
 
-                    <p>Python has lots of <a href="<p><a target="_blank" href="https://docs.python.org/3.8/library/functions.html">built-in <b>functions</b></a>. Built-in functions are not specific to a particular data type - they often work on multiple data types (but check the docs!)<br>
+                    <p>Python has lots of <a target="_blank" href="https://docs.python.org/3.8/library/functions.html">built-in <b>functions</b></a>. Built-in functions are not specific to a particular data type - they often work on multiple data types (but check the docs!)<br>
                     Some examples are:</p>
 
                     <pre style="font-size:0.9em"><code data-trim data-noescape class="python">
@@ -700,7 +700,7 @@
                 </section>
                 <section>
                     <h3>Writing files with CSV module</h3>
-                    <p>Python's built-in CSV module also has support for writing files (<a href="https://docs.python.org/3/library/csv.html#writer-objects">docs at python.org</a>)</b>
+                    <p>The CSV module also has support for writing files (<a href="https://docs.python.org/3/library/csv.html#writer-objects">docs</a>)</b>
                     <pre style="font-size:0.9em"><code data-trim data-noescape class="python">
                         # import the csv module
                         import csv
@@ -722,8 +722,7 @@
                 </section>
                 <section>
                     <h3>Reading CSV files with headers</h3>
-                    <p>Python has a built-in CSV module that includes many features used for reading/writing CSV files.</p>
-                    <b>Open a CSV and read its contents</b>
+                    <p>Use <a href="https://docs.python.org/3/library/csv.html#csv.DictReader">csv.DictReader</a> to read a CSV file with headers</p>
                     <pre style="font-size:0.9em"><code data-trim data-noescape class="python">
                         # import the csv module
                         import csv
@@ -731,7 +730,7 @@
                         with open('fun_spreadsheet.csv') as my_file:
                             # load the contents of the CSV file into a variable
                             csv_reader = csv.DictReader(my_file)
-                            # CSV is read as a dictionary with column headers as keys!
+                            # CSV read as dict with column headers as keys!
                             # now we can loop through the rows in the file
                             # and get the values from specific columns
                             for row in csv_reader:
