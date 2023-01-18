@@ -448,7 +448,7 @@
                     </code></pre>
                 </section>
                 <section class="heading-only">
-                    <h2>Conditionals & loops</h2>
+                    <h2>Conditionals</h2>
                 </section>
                 <section>
                     <h3>Conditional statements</h3>
@@ -528,6 +528,9 @@
                         <li>Zero or one <code>else</code> clause, always at the end.
                     </ul>
                 </section>
+                <section class="heading-only">
+                    <h2>Loops</h2>
+                </section>
                 <section>
                     <h3>While loops</h3>
 
@@ -598,6 +601,19 @@
                         return total
 
                     sum_up_squares(1, 5)
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Loops in functions</h3>
+                    <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
+                    def calculate_average(scores):
+                        total = 0
+                        for score in scores:
+                            total += score
+                        return total / len(scores)
+
+                    scores = [80, 95, 78, 92]
+                    average_score = calculate_average(scores)
                     </code></pre>
                 </section>
                 <section>
