@@ -300,25 +300,6 @@
                     </code></pre>
                 </section>
                 <section>
-                    <h3>Multiple arguments</h3>
-                    <p>A single argument can also be configured to accept multiple values by setting the <a href="https://docs.python.org/3/library/argparse.html#nargs"><code>nargs</code></a> parameter.
-                    <pre style="font-size:0.7em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
-                        import argparse
-                        # initialize the argument parser
-                        parser=argparse.ArgumentParser()
-                        # define an argument
-                        parser.add_argument('-d', '--directory',
-                                            type=str,
-                                            required = True
-                                            nargs = 2,
-                                            help='The directories that report files are located in')
-                        # parse the arguments
-                        args=parser.parse_args()
-                        # directory is now returned as a list with 2 items
-                        directory = args.directory
-                    </code></pre>
-                </section>
-                <section>
                     <h3>Passing arguments in Replit</h3>
                     <p>The Replit <b>Run</b> button does the equivalent of typing <code>python main.py</code> into a command line interface (CLI).</p>
                     <p>We can access the CLI in Replit by switching the right panel from <b>Console</b> to <b>Shell</b></p>
@@ -341,31 +322,10 @@
 
                     <p>These are common to all programming languages:</p>
                     <ul>
-                        <li>Logic errors</li>
                         <li>Syntax errors</li>
+                        <li>Logic errors</li>
                         <li>Runtime errors</li>
                     </ul>
-                </section>
-                <section class="heading-only">
-                    <h2>Logic errors</h2>
-                </section>
-
-                <section>
-                    <h3>Logic errors</h3>
-
-                    <p>A program has a logic error if it does not behave as expected.
-                        Typically discovered via failing tests or bug reports from users.
-                    </p>
-
-                    <p>Spot the logic error:</p>
-                    <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
-                    # Sum up the numbers from 1 to 10
-                    sum = 0
-                    for x in range(1, 10):
-                      sum += x
-                    </code></pre>
-
-                    <p>To avoid the wrath of angry users, <a target="_blank" href="https://replit.com/@pamelafox/SumTenTested">write tests</a>.</p>
                 </section>
                 <section class="heading-only">
                     <h2>Syntax errors</h2>
@@ -388,6 +348,7 @@
                        sum + = x <span class="fragment"># No space needed between + and =</span>
                     </code></pre>
                     <p>To fix a syntax error, read the message carefully and go through your code with a critical eye. 👁 </p>
+
                 </section>
 
                 <section>
@@ -407,7 +368,7 @@
                             <ul class="smaller">
                                 <li>Extra or missing parenthesis
                                 <li>Missing colon at the end of an if, while, def statements, etc.
-                                <li>You started writing a statement but forgot to put any clauses inside
+                                <li>Missing/unmatched quotes
                             </ul>
                     </p>
 
@@ -416,11 +377,10 @@
                     print("just testing here"))
                     </code></pre>
                     <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
-                    title = 'Hello, ' + name ', how are you?'
+                    title = 'Hello, ' + name + , how are you?'
                     </code></pre>
 
                 </section>
-
                 <section>
                     <h3><code>IndentationError</code>/<code>TabError</code></h3>
 
@@ -431,39 +391,97 @@
 
                     <p class="smaller"><em>What it sometimes means:</em>
                         <br>
-                        You used the wrong text editor (or one with different settings)
+                        Indents are missing/misaligned, or your text editor tab settings are misonfigured
                     </p>
 
                     <p class="smaller"><em>What you should look for:</em>
                         <ul class="smaller">
                             <li>A typo or misaligned block of statements
                             <li>A mix of tabs and spaces
-                                <ul>
-                                    <li>Open your file in an editor that shows them
-                                    <li><code>cat -A filename.py</code> will show them
-                                </ul>
                         </ul>
                     </p>
-
                     <p class="smaller"><em>Example:</em></p>
 
                     <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
                     def sum(a, b):
                         total = a + b
-                    	return total
+                    return total
                     </code></pre>
                 </section>
+            </section>
 
+            <section>
+                <h3>Linting</h3>
+
+                <p>To avoid syntax errors, use a linting tool to check your code as you write it. Many IDEs have a Python linter built in or available as an extension (ex: <a href="https://code.visualstudio.com/docs/python/linting">VSCode Python linting</a>).</p>
+
+                <p>You can also run <a href="https://pypi.org/project/pylint">Pylint</a> on your code</p>
+
+                <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    # import pylint
+                    # Already installed in Replit - no import needed
+                    def sum(a, b):
+                        total = a + b
+                    return total
+                    </code></pre>
+                    <p>In Replit, switch to the Shell tab and type <code>pylint main.py</code></a> and press <code>Enter</code>.<br>
+                    When prompted to select a version, press <code>Enter</code> again.</p>
+            </section>
+            <section>
+                <h3>Exercise</h3>
+                <p>Fix this code!</p>
+                <p><a target="_blank" href="https://replit.com/@lizkrznarich/Class9Ex1SyntaxErrors">Class9Ex1SyntaxErrors</a></p>
+            </section>
+                <section class="heading-only">
+                    <h2>Logic errors</h2>
+                </section>
+                <section>
+                    <h3>Logic errors</h3>
+
+                    <p>A program has a logic error if it does not behave as expected.
+                        Typically discovered via failing tests or bug reports from users.
+                    </p>
+
+                    <p>Spot the logic error:</p>
+                    <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    # Which medal goes to the first place winner?
+                    medals = ["gold", "silver", "bronze"]
+                    first_place = medals[1]
+                    print(first_place)
+                    </code></pre>
+                    <p>To avoid the wrath of angry users due to logic errors, write tests!</p>
+                </section>
+                <section>
+                    <h3>Testing</h3>
+
+                    <p>There are several Python testing frameworks. <a href="https://docs.pytest.org/">Pytest</a> is a good one to start with.</p>
+
+                    <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    import pytest
+
+                    medals = ["gold", "silver", "bronze"]
+                    def get_medal(place):
+                        return medals[place]
+
+                    def test_get_medal():
+                        assert get_medal(1) == "gold"
+                    </code></pre>
+                    <p>In Replit, click Run to install Pytest, then switch to the Shell tab and type <code>pytest main.py</code> and press <code>Enter</code>.</p>
+                </section>
+                <section>
+                    <h3>Exercise: Pytest</h3>
+                    <p>Add a test with Pytest</p>
+                    <p><a target="_blank" href="https://replit.com/@lizkrznarich/Class9Ex2Pytest">Class9Ex2Pytest</a></p>
+                </section>
                 <section class="heading-only">
                     <h2>Runtime errors</h2>
                 </section>
 
                 <section>
                     <h3>Runtime errors</h3>
-
+                    <p>Even with testing and linting, errors can slip through!</p>
                     <p>A runtime error happens <em>while</em> a program is running,
                         often halting the execution of the program.
-                     Each programming language defines its own runtime errors.
                     </p>
 
                     <p>Spot the runtime error:</p>
@@ -480,47 +498,41 @@
                     <p>To prevent runtime errors, code defensively and write tests for all edge cases.</p>
                 </section>
 
-
-
                 <section>
-                    <h3 style="font-size:1.4em;"><code>TypeError:'X' object is not callable</code></h3>
+                    <h3><code>NameError</code></h3>
 
                     <p class="smaller"><em>What it technically means:</em>
                         <br>
-                        Objects of type X cannot be treated as functions
+                        Python looked up a name but couldn't find it
                     </p>
 
                     <p class="smaller"><em>What it practically means:</em>
-                        <br>
-                        You accidentally called a non-function as if it were a function
+                        <ul class="smaller">
+                            <li>You made a typo
+                        </ul>
                     </p>
 
                     <p class="smaller"><em>What you should look for:</em>
                         <ul class="smaller">
-                            <li>Parentheses after variables that aren't functions
-                            <!--
-                            <li>Variables that should be functions being assigned to non-functions
-                            <li>Local variables that do not contain functions having the same name
-                            as functions in the global frame
-                            -->
+                            <li>A typo in the name
                         </ul>
                     </p>
 
                     <p class="smaller"><em>Example:</em></p>
 
                     <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
-                    sum = 2 + 2
-                    sum(3, 5)
+                    fav_nut = 'pistachio'
+                    best_chip = 'chocolate'
+                    trail_mix = Fav_Nut + best__chip
                     </code></pre>
+
                 </section>
-
-
                 <section>
                     <h3><code>...NoneType...</code></h3>
 
                     <p class="smaller"><em>What it technically means:</em>
                         <br>
-                        You used None in some operation it wasn't meant for
+                        You used <code>None</code> (null) in some operation it wasn't meant for
                     </p>
 
                     <p class="smaller"><em>What it practically means:</em>
@@ -547,64 +559,32 @@
                 </section>
 
                 <section>
-                    <h3><code>NameError</code></h3>
+                    <h3 style="font-size:1.4em;"><code>TypeError:'X' object is not callable</code></h3>
 
                     <p class="smaller"><em>What it technically means:</em>
                         <br>
-                        Python looked up a name but couldn't find it
+                        Objects of type X cannot be treated as functions
                     </p>
 
                     <p class="smaller"><em>What it practically means:</em>
-                        <ul class="smaller">
-                            <li>You made a typo
-                            <!--<li>You are trying to access variables from the wrong frame-->
-                        </ul>
+                        <br>
+                        You accidentally called a non-function as if it were a function
                     </p>
 
                     <p class="smaller"><em>What you should look for:</em>
                         <ul class="smaller">
-                            <li>A typo in the name
-                            <!--<li>The variable being defined in a different frame than expected-->
+                            <li>Parentheses after variables that aren't functions
+                            <li>Variables with same name as a function
                         </ul>
                     </p>
 
                     <p class="smaller"><em>Example:</em></p>
 
                     <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
-                    fav_nut = 'pistachio'
-                    best_chip = 'chocolate'
-                    trail_mix = Fav_Nut + best__chip
+                    sum = 2 + 2
+                    sum(3, 5)
                     </code></pre>
-
                 </section>
-
-                <!--<section>
-                    <h3><code>UnboundLocalError</code></h3>
-
-                    <p class="smaller"><em>What it technically means:</em>
-                        <br>
-                        A variable that's local to a frame was used before it was assigned
-                    </p>
-
-                    <p class="smaller"><em>What it practically means:</em>
-                        <br>
-                        You are trying to both use a variable from a parent frame,
-                        and have the same variable be a local variable in the current frame
-                    </p>
-
-                    <p class="smaller"><em>What you should look for:</em>
-                        <br>
-                        Assignments statements after the variable name
-                    </p>
-
-                    <p class="smaller"><em>Example:</em></p>
-
-                    <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
-                    </code></pre>
-
-                </section>-->
-
-
                 <section class="heading-only">
                     <h2>TraceBacks</h2>
                 </section>
@@ -675,24 +655,6 @@
                     <span style="color:red">ZeroDivisionError: division by zero</span>
                     </code></pre>
                 </section>
-
-                <section>
-                    <h3>Exercise</h3>
-
-                    <p>Fix up all these projects:</p>
-                    <ul>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/ErrorsBrokenSongify">Broken Songify</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/ErrorsBrokenFiles">Broken Files</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/ErrorsBrokenStrings">Broken Strings</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/ErrorsBrokenCounts">Broken Counts</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/ErrorsBrokenSums">Broken Sums</a></li>
-                    </ul>
-
-                    <p>Plus an <a target="_blank" href="https://replit.com/team/gdi01/ErrorsErrorQuiz">Errors Quiz</a></p>
-
-                    <p>💬  If you need any tips or help, just DM on Zoom and say 'I'm stuck on...' or 'Can you give me a tip on...'</p>
-                </section>
-
                 <section class="heading-only">
                     <h2>Exceptions</h2>
                 </section>
@@ -725,19 +687,16 @@
                                 <th>Example
                         <tbody>
                             <tr>
-                                <td><code>OverflowError</code>
-                                <td><code>pow(2.12, 1000)</code>
-                            <tr>
-                                <td><code>TypeError</code>
+                                <td><code><a href="https://docs.python.org/3/library/exceptions.html#TypeError">TypeError</a></code>
                                 <td><code>'hello'[1] = 'j'</code>
                             <tr>
                                 <td><code>IndexError</code>
                                 <td><Code>'hello'[7]</code>
                             <tr>
-                                <td><code>NameError</code>
+                                <td><code><a href="https://docs.python.org/3/library/exceptions.html#IndexError">NameError</a></code>
                                 <td><code>x += 5</code>
                             <tr>
-                                <td><code>FileNotFoundError</code>
+                                <td><code><a href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError">FileNotFoundError</a></code>
                                 <td><code>open('dsfdfd.txt')</code>
                     </table>
 
@@ -752,16 +711,16 @@
 
                     <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
                     try:
-                        &lt;try suite&gt;
+                        &lt;code you want to run if all goes well&gt;
                     except &lt;exception class&gt; as &lt;name&gt;:
-                        &lt;except suite&gt;
+                        &lt;code you want to run if this particular exception happens&gt;
                        ...
                     </code></pre>
 
-                    <p class="smaller">The <code>&lt;try suite&gt;</code> is executed first.
-                        If, during the course of executing the <code>&lt;try suite&gt;</code>, an exception is raised that is not handled otherwise, and
+                    <p class="smaller">The <code>&lt;try statement&gt;</code> is executed first.
+                        If, during the course of executing the <code>&lt;try statement&gt;</code>, an exception is raised, and
                         If the class of the exception inherits from <code>&lt;exception class&gt;</code>, then
-                        the <code>&lt;except suite&gt;</code> is executed, with <code>&lt;name&gt;</code> bound to the exception.
+                        the <code>&lt;except statement&gt;</code> is executed, with <code>&lt;name&gt;</code> bound to the exception object.
                     </p>
                 </section>
 
@@ -772,11 +731,9 @@
                     try:
                         quot = 10/0
                     except ZeroDivisionError as e:
-                        print('handling a', type(e))
+                        print('Handling an error:', e)
                         quot = 0
                     </code></pre>
-
-                    <p class="python-tutor-link"><a target="_blank" href="http://pythontutor.com/visualize.html#code=try%3A%0A%20%20%20%20quot%20%3D%2010/0%0Aexcept%20ZeroDivisionError%20as%20e%3A%0A%20%20%20%20print%28'handling%20a',%20type%28e%29%29%0A%20%20%20%20quot%20%3D%200&cumulative=true&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false">Try in PythonTutor</a></p>
                 </section>
 
                 <section>
@@ -786,8 +743,8 @@
                     def div_numbers(dividend, divisor):
                         try:
                             quotient = dividend/divisor
-                        except ZeroDivisionError:
-                            print("Function was called with 0 as divisor")
+                        except ZeroDivisionError as e:
+                            print('Handling an error:', e)
                             quotient = 0
                         return quotient
 
@@ -795,17 +752,44 @@
                     div_numbers(10, 0)
                     div_numbers(10, -1)
                     </code></pre>
+                    <p class="small">Depending on the case, we may want to place the return statement inside the try statement, so that the </p>
+                </section>
+                <section>
+                    <h3>System Exit</h3>
+                    <p>To stop the program if a certain exception is encountered, move the <code>return</code> statement inside the <code>try</code> statement and raise a SystemExit() inside the <code>except</code> statement.
+                    <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    def div_numbers(dividend, divisor):
+                    try:
+                        quotient = dividend/divisor
+                        return quotient
+                    except ZeroDivisionError as e:
+                        print('Encountered error:', e)
+                        raise SystemExit()
 
-                    <p class="python-tutor-link"><a target="_blank" href="http://pythontutor.com/visualize.html#code=def%20div_numbers%28dividend,%20divisor%29%3A%0A%20%20%20%20try%3A%0A%20%20%20%20%20%20%20%20quotient%20%3D%20dividend/divisor%0A%20%20%20%20except%20ZeroDivisionError%3A%0A%20%20%20%20%20%20%20%20print%28%22Function%20was%20called%20with%200%20as%20divisor%22%29%0A%20%20%20%20%20%20%20%20quotient%20%3D%200%0A%20%20%20%20return%20quotient%0A%0Adiv_numbers%2810,%202%29%0Adiv_numbers%2810,%200%29%0Adiv_numbers%2810,%20-1%29&cumulative=true&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false">Try in PythonTutor</a></p>
+                    div_numbers(10, 2)
+                    div_numbers(10, 0)
+                    div_numbers(10, -1)
+                    </code></pre>
+
+                </section>
+                <section>
+                    <h3>Default Exception</h3>
+
+                    <p>All of the specific exception types are derived from the parent class <code><a href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code>.</p>
+                    <ul>
+                        <li><code><a href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code> can be used as a wildcard that catches (almost) everything</li>
+                        <li>It can be used on its own, or as a last resort to catch exceptions that you haven't caught with a more specific type</li>
+                    </ul>
                 </section>
 
                 <section>
-                    <h3>Handle file exceptions</h3>
+                    <h3>Default Exception</h3>
 
                     <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    import csv
                     def read_movies(filename):
                         try:
-                          with open(filename, newline="") as file:
+                          with open(filename) as file:
                             movies = []
                             reader = csv.reader(file)
                             for row in reader:
@@ -816,65 +800,41 @@
                           return []
 
                     read_movies("movies.csv")
-                    read_movies("movies2.csv")
                     </code></pre>
 
                 </section>
-
                 <section>
-                    <h3>Exercise</h3>
+                    <h3>Specific exception with default fallback</h3>
 
-                    <p>We'll start this one together.</p>
-
-                    <p><a target="_blank" href="https://replit.com/team/gdi01/ErrorsExceptionCatcher">Exception catcher</a></p>
-                </section>
-                <!--
-                <section class="heading-only">
-                    <h2>Testing</h3>
-                </section>
-
-                <section>
-                    <h3>Types of tests</h3>
-                    <ul>
-                        <li><strong>Unit tests</strong>: Does the small units of the system give a correct output for each input?
-                        <li><strong>Integration tests</strong>: Do the different parts of the system work together correctly?
-                        <li><strong>Smoke tests</strong>: Do the most basic features of the system work?
-                        <li><strong>End-to-end tests</strong>: Does the system handle an entire user workflow from start to end?
-                        <li><strong>User acceptance tests</strong>: Does the system meet the business requirements?
-                        <li><strong>Performance/load tests</strong>: Can the system scale to meet possible demand?
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Python unit tests</h3>
-
-                    <p class="smaller">It is possible to use <a href="https://docs.python.org/3/library/doctest.html">doctests</a> for unit testing,
-                        but it is better to use the <a href="https://docs.python.org/3/library/unittest.html">unit test</a> module
-                        to test production code.</p>
-
-                    <p>Make a separate file for testing:</p>
                     <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
-                    import unittest
+                    def read_movies(filename):
+                        try:
+                          with open(filename) as file:
+                            movies = []
+                            reader = csv.reader(file)
+                            for row in reader:
+                              movies.append(row)
+                            return movies
+                        except FileNotFoundError as e:
+                            print("File does not exist")
+                            return []
+                        except Exception as e:
+                            print("Something else went wrong")
+                            print(e)
+                            return []
 
-                    from main import div_numbers
-
-                    class TestStringMethods(unittest.TestCase):
-
-                        def test_div_integers(self):
-                            self.assertEqual(div_numbers(50, 25), 2)
-                            self.assertEqual(div_numbers(-50, 25), -2)
-
-                        def test_div_zero(self):
-                            self.assertEqual(div_numbers(50, 0), 0)
-
-                    if __name__ == '__main__':
-                            unittest.main()
+                    read_movies("movies.csv")
                     </code></pre>
 
                 </section>
-                -->
 
+                <section>
+                    <h3>Exercise: Try/Except</h3>
 
+                    <p>Let's make our report code a bit more robust with some error handling</p>
+
+                    <p><a target="_blank" href="https://replit.com/@lizkrznarich/Class9Ex3TryExcept">Class9Ex3TryExcept</a></p>
+                </section>
 			</div>
 		</div>
 
