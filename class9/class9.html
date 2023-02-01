@@ -140,10 +140,9 @@
 
                     <ul style="font-size:1.0em;">
                         <li>Review
-                        <li>Error types
-                        <li>Tracebacks
-                        <li>Debugging
-                        <li>Exceptions
+                        <li>Syntax errors & linting
+                        <li>Logic errors & testing
+                        <li>Runtime errors & exception handling
                     </ul>
                 </section>
                 <section class="heading-only">
@@ -341,74 +340,33 @@
                     if x > 5 <span class="fragment"># Missing colon</span>
                        x += 1
                     </code></pre>
-
                     <pre style="font-size:0.7em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
                     sum = 0
                     for x in range(0, 10):
                        sum + = x <span class="fragment"># No space needed between + and =</span>
                     </code></pre>
-                    <p>To fix a syntax error, read the message carefully and go through your code with a critical eye. 👁 </p>
+                    <pre style="font-size:0.7em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                        def my_func(num_1, num_2):
+                           sum = num_1 + num_2
+                        return sum <span class="fragment"># Return is not indented</span>
+                        </code></pre>
 
                 </section>
 
                 <section>
-                    <h3><code>SyntaxError</code></h3>
-
-                    <p class="smaller"><em>What it technically means:</em>
-                        <br>
-                        The file you ran isn’t valid python syntax
-                    </p>
-
-                    <p class="smaller"><em>What it practically means:</em>
-                        <br>
-                        You made a typo
-                    </p>
-
-                    <p class="smaller"><em>What you should look for:</em>
-                            <ul class="smaller">
+                    <h3><code>Common syntax errors</code></h3>
+                            <ul>
                                 <li>Extra or missing parenthesis
                                 <li>Missing colon at the end of an if, while, def statements, etc.
                                 <li>Missing/unmatched quotes
+                                <li>Incorrect/misaligned indents
                             </ul>
                     </p>
 
-                    <p class="smaller"><em>Examples:</em></p>
-                    <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
-                    print("just testing here"))
-                    </code></pre>
-                    <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
-                    title = 'Hello, ' + name + , how are you?'
-                    </code></pre>
+                    <p>To fix a syntax error, read the message carefully and go through your code with a critical eye. 👁 <br>
+                    ...and lint your code!</p>
 
                 </section>
-                <section>
-                    <h3><code>IndentationError</code>/<code>TabError</code></h3>
-
-                    <p class="smaller"><em>What it technically means:</em>
-                        <br>
-                        The file you ran isn't valid Python syntax, due to indentation inconsistency.
-                    </p>
-
-                    <p class="smaller"><em>What it sometimes means:</em>
-                        <br>
-                        Indents are missing/misaligned, or your text editor tab settings are misonfigured
-                    </p>
-
-                    <p class="smaller"><em>What you should look for:</em>
-                        <ul class="smaller">
-                            <li>A typo or misaligned block of statements
-                            <li>A mix of tabs and spaces
-                        </ul>
-                    </p>
-                    <p class="smaller"><em>Example:</em></p>
-
-                    <pre style="font-size:0.7em;"><code data-trim data-noescape class="python">
-                    def sum(a, b):
-                        total = a + b
-                    return total
-                    </code></pre>
-                </section>
-            </section>
 
             <section>
                 <h3>Linting</h3>
@@ -471,7 +429,7 @@
                 <section>
                     <h3>Exercise: Pytest</h3>
                     <p>Add a test with Pytest</p>
-                    <p><a target="_blank" href="https://replit.com/@lizkrznarich/Class9Ex2Pytest">Class9Ex2Pytest</a></p>
+                    <p><a target="_blank" href="https://replit.com/@lizkrznarich/Class9Ex2PytestTest">Class9Ex2Pytest</a></p>
                 </section>
                 <section class="heading-only">
                     <h2>Runtime errors</h2>
@@ -675,7 +633,55 @@
 
                     <p>If an exception is not handled, the program stops executing immediately.</p>
                 </section>
+                <section>
+                    <h3>The try statement</h3>
 
+                    <p>To handle an exception (keep the program running), use a <code>try</code> statement.</p>
+
+                    <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    try:
+                        &lt;code you want to run if all goes well&gt;
+                    except:
+                        &lt;code you want to run if this particular exception happens&gt;
+                       ...
+                    </code></pre>
+
+                    <p class="smaller">The <code>&lt;try statement&gt;</code> is executed first.
+                        If and exception is raised with the <code>&lt;try statement&gt;</code> executes,
+                        the <code>&lt;except statement&gt;</code> is executed.
+                    </p>
+                </section>
+                <section>
+                    <h3>Try statement example</h3>
+
+                    <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    try:
+                        quot = 10/0
+                    except:
+                        print("An error happened")
+                        quot = 0
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Getting error details</h3>
+                    <p>To get the error message that Python returned, we need to catch the Exception and assign it to a variable.</p>
+                    <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                    try:
+                        quot = 10/0
+                    except Exception as e:
+                        print('Handling an error:', e)
+                        quot = 0
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Default Exception</h3>
+                    <p>All exception types are derived from the parent class <code><a href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code>.</p>
+                    <ul>
+                        <li><code><a href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code> can be used as a wildcard that catches (almost) everything</li>
+                        <li>It can be used on its own, or as a last resort to catch exceptions that you haven't caught with a more specific type</li>
+                    </ul>
+                </section>
                 <section>
                     <h3>Types of exceptions</h3>
 
@@ -700,134 +706,62 @@
                                 <td><code>open('dsfdfd.txt')</code>
                     </table>
 
-                    <p>See full list in the <a target="_blank" href="https://docs.python.org/3/library/exceptions.html">exceptions docs</a>.</p>
+                    <p>See full list in the <a target="_blank" href="https://docs.python.org/3/library/exceptions.html">exceptions docs</a>. Note: Third party Python packages often include their own custom exception types!</p>
 
                 </section>
-
                 <section>
-                    <h3>The try statement</h3>
-
-                    <p>To handle an exception (keep the program running), use a <code>try</code> statement.</p>
-
-                    <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
-                    try:
-                        &lt;code you want to run if all goes well&gt;
-                    except &lt;exception class&gt; as &lt;name&gt;:
-                        &lt;code you want to run if this particular exception happens&gt;
-                       ...
-                    </code></pre>
-
-                    <p class="smaller">The <code>&lt;try statement&gt;</code> is executed first.
-                        If, during the course of executing the <code>&lt;try statement&gt;</code>, an exception is raised, and
-                        If the class of the exception inherits from <code>&lt;exception class&gt;</code>, then
-                        the <code>&lt;except statement&gt;</code> is executed, with <code>&lt;name&gt;</code> bound to the exception object.
-                    </p>
-                </section>
-
-                <section>
-                    <h3>Try statement example</h3>
-
+                    <h3>Catching a specific exception type</h3>
+                    <p>In some cases, we need to catch and handle specific exceptions. Multiple except statements that catch different exception types are allowed. It's a best practice to catch the default Exception, in addition to specific types.</p>
                     <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
                     try:
                         quot = 10/0
                     except ZeroDivisionError as e:
-                        print('Handling an error:', e)
+                        print('Handling zero division exception:', e)
                         quot = 0
+                    except Exception as e:
+                        print('Something else went wrong:', e)
                     </code></pre>
                 </section>
-
                 <section>
                     <h3>Try inside a function</h3>
-
                     <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
                     def div_numbers(dividend, divisor):
                         try:
                             quotient = dividend/divisor
                         except ZeroDivisionError as e:
-                            print('Handling an error:', e)
+                            print('Handling zero division exception:', e)
                             quotient = 0
+                        except Exception as e:
+                            print('Something else went wrong:', e)
+                            quotient = None
                         return quotient
 
                     div_numbers(10, 2)
                     div_numbers(10, 0)
-                    div_numbers(10, -1)
+                    div_numbers(10, 'foo')
                     </code></pre>
-                    <p class="small">Depending on the case, we may want to place the return statement inside the try statement, so that the </p>
+                    <p class="small">Depending on the case, we may want to place the return statement inside the try statement, so that there is only a return value if the code succeeds.</p>
                 </section>
                 <section>
                     <h3>System Exit</h3>
                     <p>To stop the program if a certain exception is encountered, move the <code>return</code> statement inside the <code>try</code> statement and raise a SystemExit() inside the <code>except</code> statement.
                     <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
                     def div_numbers(dividend, divisor):
-                    try:
-                        quotient = dividend/divisor
+                        try:
+                            quotient = dividend/divisor
+                        except ZeroDivisionError as e:
+                            print('Encountered error:', e)
+                            quotient = 0
+                        except Exception as e:
+                            print('Something else went wrong:', e)
+                            raise SystemExit()
                         return quotient
-                    except ZeroDivisionError as e:
-                        print('Encountered error:', e)
-                        raise SystemExit()
 
                     div_numbers(10, 2)
                     div_numbers(10, 0)
                     div_numbers(10, -1)
                     </code></pre>
-
                 </section>
-                <section>
-                    <h3>Default Exception</h3>
-
-                    <p>All of the specific exception types are derived from the parent class <code><a href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code>.</p>
-                    <ul>
-                        <li><code><a href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code> can be used as a wildcard that catches (almost) everything</li>
-                        <li>It can be used on its own, or as a last resort to catch exceptions that you haven't caught with a more specific type</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Default Exception</h3>
-
-                    <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
-                    import csv
-                    def read_movies(filename):
-                        try:
-                          with open(filename) as file:
-                            movies = []
-                            reader = csv.reader(file)
-                            for row in reader:
-                              movies.append(row)
-                            return movies
-                        except Exception as e:
-                          print(e)
-                          return []
-
-                    read_movies("movies.csv")
-                    </code></pre>
-
-                </section>
-                <section>
-                    <h3>Specific exception with default fallback</h3>
-
-                    <pre style="font-size:0.9em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
-                    def read_movies(filename):
-                        try:
-                          with open(filename) as file:
-                            movies = []
-                            reader = csv.reader(file)
-                            for row in reader:
-                              movies.append(row)
-                            return movies
-                        except FileNotFoundError as e:
-                            print("File does not exist")
-                            return []
-                        except Exception as e:
-                            print("Something else went wrong")
-                            print(e)
-                            return []
-
-                    read_movies("movies.csv")
-                    </code></pre>
-
-                </section>
-
                 <section>
                     <h3>Exercise: Try/Except</h3>
 
