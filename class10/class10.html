@@ -570,6 +570,22 @@
                     <img src="../images/nasa-key-request.png">
                 </section>
                 <section>
+                    <h3>Query parameters</h3>
+                    <p>In the NASA API, your key is added as a <b>query paramter</b></p>
+                    <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                        ?api_key=eIkpQYXKa6mq1J75qPMYc0Rvit3K8wNaytEJCnTn&start_date=2023-01-01
+                    </code></pre>
+                    <p>Query parameters ("params") are key/value pairs that allow adding extra context to a URL.</p>
+                    <ul>
+                        <li>Query param portion of a URL begins with <code>?</code></li>
+                        <li>Each additional param is preceded with <code>&</code></li>
+                    </ul>
+                    <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
+                        https://api.nasa.gov/planetary/apod?api_key=eIkpQYXKa6mq1J75qPMYc0Rvit3K8wNaytEJCnTn&start_date=2023-01-01
+                    </code></pre>
+                    <p class="smaller"><em>Params are specific to seach site/app/API - there's no universal set of available params</em></p>
+                </section>
+                <section>
                     <h3>The NASA APOD API</h3>
                     <p>Let's run this in Python</p>
                     <pre style="font-size:1.0em; margin-bottom: 40px;"><code data-trim data-noescape class="python">
