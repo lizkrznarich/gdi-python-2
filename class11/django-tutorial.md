@@ -2,9 +2,9 @@
 
 In this tutorial, we'll create a basic Django app in Replit with 1 view and 1 URL.
 
-1. Django project setup
-2. Create homepage templates
-3. Create homepage view & configure URL
+1. [Django project setup](#django-project-setup)
+2. [Create homepage templates](#create-homepage-templates)
+3. [Create homepage view & configure URL](#create-homepage-view--configure-url)
 
 # Django project setup
 
