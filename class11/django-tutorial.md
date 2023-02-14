@@ -1,13 +1,14 @@
 # Tutorial: Build a web app with Django & Replit
 
-In part 1 of this tutorial, we'll create a basic Django app in Replit with 1 view and 1 URL.
+In this tutorial, we'll create a basic Django app in Replit that displays the weather for the user's location, based on their IP address. See a completed version of this in Replit at [https://replit.com/@lizkrznarich/Python2WeatherAppFinished](https://replit.com/@lizkrznarich/Python2WeatherAppFinished)
 
 1. [Django project setup](#django-project-setup)
 2. [Create homepage templates](#create-homepage-templates)
 3. [Create homepage view & configure URL](#create-homepage-view--configure-url)
-4. [Get the user's IP address](#get-the-users-ip-address))
+4. [Get the user's IP address](#get-the-users-ip-address)
 5. [Get the user's location](#get-the-users-location)
 6. [Get the current weather for the user's location](#get-weather-data-for-the-users-location)
+7. [Next steps!](#next-steps)
 
 # Django project setup
 
