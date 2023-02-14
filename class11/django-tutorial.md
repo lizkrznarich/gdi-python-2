@@ -1,6 +1,14 @@
 # Tutorial: Build a web app with Django & Replit
 
-# Setup
+In this tutorial, we'll create a basic Django app in Replit with 1 view and 1 URL.
+
+1. Django project setup
+2. Create homepage templates
+3. Create homepage view & configure URL
+
+# Django project setup
+
+Before we can get started, we first need to set up a new Django project in Replit.
 
 1. Sign into your Replit account at [replit.com](https://replit.com). If you don't have an account, create a new one.
 
@@ -27,9 +35,9 @@
 ![](../images/django-success.png)
 
 
-# Create a static homepage
+# Create homepage templates
 
-In this section, we'll add an HTML template for our homepage, create a view that points to the homepage template, and configure a URL to point to the view.
+In this section, we'll add HTML templates for our homepage and configure Django to look for our templates in the correct directory.
 
 1. In the **Files** panel, hover over **django_project**, click the 3 dots icon and choose **Add folder**.
 
@@ -74,6 +82,10 @@ In this section, we'll add an HTML template for our homepage, create a view that
         'DIRS': [os.path.join(BASE_DIR, 'django_project', 'templates')],
 
 ![](../images/django-settings-dirs.png)
+
+# Create homepage view & configure URL
+
+In this section, we'll create a new view that points to the homepage template, and then configure a URL to point to the view.
 
 7. Create a new file inside **django_project** named **views.py** and paste the code below to create a new view that directs to our index.html template.
 
