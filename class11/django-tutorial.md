@@ -5,9 +5,9 @@ In part 1 of this tutorial, we'll create a basic Django app in Replit with 1 vie
 1. [Django project setup](#django-project-setup)
 2. [Create homepage templates](#create-homepage-templates)
 3. [Create homepage view & configure URL](#create-homepage-view--configure-url)
-4. [Get the user's IP address](#create-homepage-view--configure-url)
-5. [Get the user's location](#)
-6. [Get the current weather for the user's location](#)
+4. [Get the user's IP address](#get-the-users-ip-address))
+5. [Get the user's location](#get-the-users-location)
+6. [Get the current weather for the user's location](#get-weather-data-for-the-users-location)
 
 # Django project setup
 
@@ -181,20 +181,52 @@ Now that we have the user's IP, we can get the geolocation information associate
 
 ![](../images/django-location-pretty.png)
 
+
+# Configure OpenWeather API key
+
+We'll get weather data from [OpenWeather](https://openweathermap.org) using their [Current Weather API](https://openweathermap.org/current). To use this API, we first need to register for a key and configure that key in our Django settings file.
+
+1. Register for an OpenWeather API key at [https://home.openweathermap.org/users/sign_up](https://home.openweathermap.org/users/sign_up). You do NOT need to tick the checkboxes to receive emails from OpenWeather.
+
+![](../images/django-open-weather.png)
+
+2. Visit the **API Keys** tab in your account and copy the value in the **Key** field. Note! It can take up to 2 hours for a new key to become active.
+
+![](../images/django-open-weather-key.png)
+
+3. In Replit, click the **Secrets** icon in the **Tools** section of the left panel. In the **Secrets** tab that opens in the right panel, type **OPEN_WEATHER_KEY** in the **key** field, paste your OpenWeather API key in the **value** field, and **Click Add new secret**.
+
+![](../images/django-replit-open-weather-secret.png)
+
+4. In the **Files** panel, click **settings.py** to open it. At the bottom of the file, add a new line with the code below.
+
+        OPEN_WEATHER_KEY = os.getenv('OPEN_WEATHER_KEY')
+
+![](../images/django-settings-open-weather-token.png)
+
+*Note: We could paste this key directly into our code, but that presents a security risk. If our code becomes public (either on purpose or accidentally), others could use our key maliciously. Keys should be treated like passwords, they should never be placed directly in code.*
+
 # Get weather data for the user's location
 
-Now that we have the user's location, we can get the current weather for that location using the [OpenWeather](https://openweathermap.org) API. We'll use the [Current Weather API](https://openweathermap.org/current), which accepts a requests in the format ```https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}&units=imperial``` and returns a JSON reponse.
+Now that we have the user's location and our OpenWeather API key, we can get the current weather for that location using a request in the format ```https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}&units=imperial```.
 
-1. Open **views.py** and add a new function that sends a requests to api.openweathermap.org
+1. Open **views.py** and import the settings file. This is how we share values between files in Python!
+
+        from . import settings
+
+3. Open **views.py** and add a new function that sends a requests to api.openweathermap.org
 
         def get_weather_from_location(location):
             token = os.environ.get("OPEN_WEATHER_TOKEN")
-            url = "https://api.openweathermap.org/data/2.5/weather?lat=" + location['lat']
-                    + "lon=" location['lat'] + "&units=metric&appid=" + token
+            url = "https://api.openweathermap.org/data/2.5/weather?lat=" + location['lat'] + "&lon=" + location['lat'] + "&units=imperial&appid=" + settings.OPEN_WEATHER_KEY
             response = requests.get(url)
             return response.json()
 
-2. Call the new function from your **index(request)** function and assign the response to a variable, and pass that data to the template.
+*Note: the url above is a very long string. We can use Pythons built-in string method [.format()](https://docs.python.org/3/library/stdtypes.html#str.format) to shorten it a bit. In place of each ```{}``` in the string, Python will substitute an argument passed to .formt(), in order from left to right.*
+
+        url = "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&units=imperial&appid={}".format(location['lat'], location['lon'], settings.OPEN_WEATHER_KEY)
+
+4. Call the new function from your **index(request)** function and assign the response to a variable, and pass that data to the template.
 
         def index(request):
             x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -206,10 +238,25 @@ Now that we have the user's location, we can get the current weather for that lo
             weather = get_weather_from_location(location)
             return render(request, 'index.html', {'ip': ip, 'location': location, 'weather': weather})
 
-3. Add the weather info for the user's location to the **index.html** template by pasting the following line beneath "You are located in...".
+5. Add the weather info for the user's location to the **index.html** template by pasting the following line beneath "You are located in...".
 
         <p>Current weather: {{ weather }}</p>
 
+![](../images/django-weather-json.png)
+
+6. Like with location, ```weather``` contains the entire OpenWeather JSON response. We can make things prettier by displaying just specific values. Update the "Current weather" line in **index.html** with the code below.
+
+        <p>Current weather:</p>
+        <table>
+            <tr><td>Temperature</td><td>{{ weather.main.temp }} F</td></tr>
+            <tr><td>Wind</td><td>{{ weather.wind.speed }} mph</td></tr>
+            <tr><td>Conditions</td><td>{{ weather.weather.0.description }}</td></tr>
+        </table>
+
+
+![](../images/django-weather-pretty.png)
+
+# Next steps
 
 
 
