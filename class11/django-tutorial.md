@@ -1,10 +1,13 @@
 # Tutorial: Build a web app with Django & Replit
 
-In this tutorial, we'll create a basic Django app in Replit with 1 view and 1 URL.
+In part 1 of this tutorial, we'll create a basic Django app in Replit with 1 view and 1 URL.
 
 1. [Django project setup](#django-project-setup)
 2. [Create homepage templates](#create-homepage-templates)
 3. [Create homepage view & configure URL](#create-homepage-view--configure-url)
+4. [Get the user's IP address](#create-homepage-view--configure-url)
+5. [Get the user's location](#)
+6. [Get the current weather for the user's location](#)
 
 # Django project setup
 
@@ -113,8 +116,100 @@ In this section, we'll create a new view that points to the homepage template, a
             path('admin/', admin.site.urls),
         ]
 
-11. Open the Webview tab (Tools > Webview). You should see a "Hello world!" message from your index template.
+11. Open the **Webview** tab (Tools > Webview). You should see a "Hello world!" message from your index template.
 
 ![](../images/django-hello-world.png)
+
+# Get the user's IP address
+
+In order to get the user's location, we first need to get their IP address. An IP address identifies the device that a user's request is coming from.
+
+1. Open **views.py** and update the **index(request)** function so that it gets the user's IP address from the built-in Dajngo request object and passes it to the index.html template.
+
+        def index(request):
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+            return render(request, 'index.html', {'ip': ip})
+
+2. Open the **index.html** template and add the line below Hello World.
+
+        <p>You are visiting from IP address {{ ip }}</p>
+
+3. Your page should now show the IP address you are visting from!
+
+![](../images/django-ip.png)
+
+# Get the user's location
+
+Now that we have the user's IP, we can get the geolocation information associated with that IP. We'll use [https://ip-api.com](https://ip-api.com) and the requests module for this. IP API is very simple - send a request in format http://ip-api.com/json/24.177.113.128, and it will return a JSON response with the corresponding location data:
+
+        {"status":"success","country":"United States","countryCode":"US","region":"WI","regionName":"Wisconsin","city":"Madison","zip":"53705","lat":43.0725,"lon":-89.4491,"timezone":"America/Chicago","isp":"Charter Communications","org":"Spectrum","as":"AS20115 Charter Communications","query":"24.177.113.128"}
+
+1. Open **views.py** and add the requests module to the list of imports.
+
+        import requests
+
+2. Add a new function to views.py that sends a requests to ip-api.com
+
+        def get_location_from_ip(ip_address):
+            response = requests.get("http://ip-api.com/json/" + ip_address)
+            return response.json()
+
+3. Call the new function from your **index(request)** function and assign the response to a variable, and pass that data to the template.
+
+        def index(request):
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+            location = get_location_from_ip(ip)
+            return render(request, 'index.html', {'ip': ip, 'location': location})
+
+4. Add the user's location info to the **index.html** template by pasting the following line beneath "You are visiting from...".
+
+        <p>You are located in {{ location }}</p>
+
+![](../images/django-location-json.png)
+
+5. Oops! The raw response from ip-api.com doesn't look so nice. We can get individual values using the syntax below.
+
+        <p>You are located in {{ location.city }}, {{ location.region }}, {{ location.country_Code }}</p>
+
+![](../images/django-location-pretty.png)
+
+# Get weather data for the user's location
+
+Now that we have the user's location, we can get the current weather for that location using the [OpenWeather](https://openweathermap.org) API. We'll use the [Current Weather API](https://openweathermap.org/current), which accepts a requests in the format ```https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}&units=imperial``` and returns a JSON reponse.
+
+1. Open **views.py** and add a new function that sends a requests to api.openweathermap.org
+
+        def get_weather_from_location(location):
+            token = os.environ.get("OPEN_WEATHER_TOKEN")
+            url = "https://api.openweathermap.org/data/2.5/weather?lat=" + location['lat']
+                    + "lon=" location['lat'] + "&units=metric&appid=" + token
+            response = requests.get(url)
+            return response.json()
+
+2. Call the new function from your **index(request)** function and assign the response to a variable, and pass that data to the template.
+
+        def index(request):
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+            location = get_location_from_ip(ip)
+            weather = get_weather_from_location(location)
+            return render(request, 'index.html', {'ip': ip, 'location': location, 'weather': weather})
+
+3. Add the weather info for the user's location to the **index.html** template by pasting the following line beneath "You are located in...".
+
+        <p>Current weather: {{ weather }}</p>
+
+
 
 
