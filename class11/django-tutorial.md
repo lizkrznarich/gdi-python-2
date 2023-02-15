@@ -42,7 +42,11 @@ Before we can get started, we first need to set up a new Django project in Repli
 
 # Create homepage templates
 
-In this section, we'll add HTML templates for our homepage and configure Django to look for our templates in the correct directory.
+In this section, we'll add HTML templates for our homepage and configure Django to look for our templates in the correct directory. Django includes its own [template system](https://docs.djangoproject.com/en/4.1/topics/templates). Components of the template system include:
+
+- [Variables](https://docs.djangoproject.com/en/4.1/topics/templates/#variables) allow passing data from our Python code into templates. Data is passed in a dictionary, and template variables enclosed in ```{{ }}```
+- [Tags](https://docs.djangoproject.com/en/4.1/topics/templates/#tags) allow adding various bits of logic to your templates. Django includes a large [library of built-in tags](https://docs.djangoproject.com/en/4.1/ref/templates/builtins/#ref-templates-builtins-tags). Tags are enclosed in ```{% %}```
+
 
 1. In the **Files** panel, hover over **django_project**, click the 3 dots icon and choose **Add folder**.
 
