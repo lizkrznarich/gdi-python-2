@@ -7,8 +7,9 @@ In this tutorial, we'll create a basic Django app in Replit that displays the we
 3. [Create homepage view & configure URL](#create-homepage-view--configure-url)
 4. [Get the user's IP address](#get-the-users-ip-address)
 5. [Get the user's location](#get-the-users-location)
-6. [Get the current weather for the user's location](#get-weather-data-for-the-users-location)
-7. [Next steps!](#next-steps)
+6. [Configure OpenWeather API key](#configure-openweather-api-key)
+7. [Get the current weather for the user's location](#get-weather-data-for-the-users-location)
+8. [Next steps!](#next-steps)
 
 # Django project setup
 
@@ -57,7 +58,6 @@ In this section, we'll add HTML templates for our homepage and configure Django 
 
 5. Copy the template code below and paste it into the **base.html** file. This will be the parent template for all of our other templates.
 
-        {% load static %}
         <!DOCTYPE html>
 
         <html lang="en">
