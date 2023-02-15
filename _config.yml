@@ -1,2 +1,2 @@
 exclude:
-- **.md
+- class11/django-tutorial.md
