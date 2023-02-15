@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title>Intro to Python frameworks & object-oriented Python</title>
+		<title>Intro to Python frameworks & Django</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reset.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/theme/simple.css" id="theme">
@@ -122,7 +122,7 @@
 			<div class="slides">
 
 				<section class="heading-only" style="padding-top:5%">
-                    <h2>Intro to Python frameworks & object-oriented Python</h2>
+                    <h2>Intro to Python frameworks & Django</h2>
 
 					<div class="no-print" style="text-align: left; margin-top: 100px; font-size: 70%;">
 						Tips for navigating the slides:
@@ -141,8 +141,9 @@
                     <ul style="font-size:1.0em;">
                         <li>Review
                         <li>About Python frameworks
-                        <li>Anatomy of a framework
-                        <li>Object-oriented Python
+                        <li>About Django
+                        <li>Django MVT
+                        <li>Getting started with Django
                     </ul>
                 </section>
                 <section class="heading-only">
@@ -368,6 +369,9 @@
                     </ul>
                     <p>Both allow you to build web applications and/or APIs, and both have a robust extension ecosystem</p>
                 </section>
+                <section class="heading-only">
+                    <h2>Django</h2>
+                </section>
                 <section>
                     <h3>Django features</h3>
                     <p>In this class, we'll use Django. Its features include:</p>
@@ -395,7 +399,7 @@
                 <section>
                     <h3>Django MVT</h3>
                     <ul>
-                        <li><b>Model</b> The data access layer. This layer contains everything about the data: how to access it, how to validate it, which behaviors it has, and the relationships between the data. <em>>Note that this layer is not required! Sometimes a request only generates a view, which populates a template.</em></li>
+                        <li><b>Model</b> The data access layer. This layer contains everything about the data: how to access it, how to validate it, which behaviors it has, and the relationships between the data. <em>Note that this layer is not required! Sometimes a request only generates a view, which populates a template.</em></li>
                         <li><b>View</b> The logic layer. This layer contains the logic that accesses the model and populates the appropriate template.</li>
                         <li><b>Template</b> The presentation layer. This layer defines how something should be displayed on a Web page .</li>
                     </ul>
@@ -404,16 +408,29 @@
                     <h3>Django MVT</h3>
                     <img src="../images/django_mvt.png">
                 </section>
-                <section>
-                    <h3>Django MVT</h3>
-                    <img src="../images/django_mvt.png">
-                </section>
-                <section class="heading-only">
-                    <h2>Object-oriented Python</h2>
-                </section>
                 <section class="heading-only">
                     <h2>Getting started with Django</h2>
                 </section>
+                <section>
+                    <h3>Installing Django locally</h3>
+                    <ul>
+                        <li><a href="https://pypi.org/project/Django/">Django is available in PyPi</a> and can be installed with <code>pip install</code>, like any other package.</li>
+                        <li>When you install Django, you're downloading the source code which is maintained in <a href="https://github.com/django/django">Github</a></li>
+                        <li>After installing Django, the first step is to <a href="https://docs.djangoproject.com/en/4.1/intro/tutorial01/#creating-a-project">create a new project</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Django in Replit</h3>
+                    <p>For our project, we'll run Django in Replit. From here on out, we'll follow this tutorial:</p>
+                    <h3><a href="https://github.com/lizkrznarich/gdi-python-2/blob/main/class11/django-tutorial.md">Python 2 Django tutorial</a></h3>
+                    <p>The tutorial will guide us through building a simple Django web app the displays the current weather based on the user's location.</p>
+                </section>
+                <section>
+                    <h3>Homework!</h3>
+                    <p>For next time, please make sure you've completed <a href="https://github.com/lizkrznarich/gdi-python-2/blob/main/class11/django-tutorial.md#tutorial-build-a-web-app-with-django--replit">tutorial steps 1-3</a>!</p>
+                    <p>Also, please register for an OpenWeather API key! (<a href="https://github.com/lizkrznarich/gdi-python-2/blob/main/class11/django-tutorial.md#configure-openweather-api-key">step 1 in Configure OpenWeather API key</a>)</p>
+                </section>
+
 
 			</div>
 		</div>
