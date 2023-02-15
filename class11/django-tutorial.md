@@ -98,7 +98,7 @@ In this section, we'll create a new view that points to the homepage template, a
 
         from django.shortcuts import render
 
-        def home(request):
+        def index(request):
             return render(request, 'index.html')
 
 8. Finally, we need to link our view to a URL. In the Files panel, click the **django_project** folder, then click **urls.py**. In the imports section add the line below.
