@@ -62,7 +62,6 @@ In this section, we'll add HTML templates for our homepage and configure Django 
 
 5. Copy the template code below and paste it into the **base.html** file. This will be the parent template for all of our other templates.
 
-{% raw %}
         <!DOCTYPE html>
 
         <html lang="en">
@@ -76,17 +75,14 @@ In this section, we'll add HTML templates for our homepage and configure Django 
             {% block content %}{% endblock content %}
         </body>
         </html>
-{% endraw %}
 
 6. Create another file inside **templates** named **index.html**. Copy the code below and paste it into the **index.html** file. The line between ```{% block content %}``` and ```{% endblock content %}``` will be inserted where ```{% block content %}{% endblock content %}``` is located in the parent base.html template.
 
-{% raw %}
         {% extends "base.html" %}
 
         {% block content %}
         <h1>Hello World!</h1>
         {% endblock content %}
-{% endraw %}
 
 7. We need to tell Django where to look for our template files. In the **Files** panel, click **settings.py** to open it. Scroll to the **TEMPLATES** section and replace the line that begins with **DIR** with the code below.
 
@@ -144,9 +140,7 @@ In order to get the user's location, we first need to get their IP address. An I
 
 2. Open the **index.html** template and add the line below Hello World.
 
-{% raw %}
         <p>You are visiting from IP address {{ ip }}</p>
-{% endraw %}
 
 3. Your page should now show the IP address you are visting from!
 
@@ -181,17 +175,13 @@ Now that we have the user's IP, we can get the geolocation information associate
 
 4. Add the user's location info to the **index.html** template by pasting the following line beneath "You are visiting from...".
 
-{% raw %}
         <p>You are located in {{ location }}</p>
-{% endraw %}
 
 ![](../images/django-location-json.png)
 
 5. Oops! The raw response from ip-api.com doesn't look so nice. We can get individual values using the syntax below.
 
-{% raw %}
         <p>You are located in {{ location.city }}, {{ location.region }}, {{ location.country_Code }}</p>
-{% endraw %}
 
 ![](../images/django-location-pretty.png)
 
@@ -254,26 +244,26 @@ Now that we have the user's location and our OpenWeather API key, we can get the
 
 5. Add the weather info for the user's location to the **index.html** template by pasting the following line beneath "You are located in...".
 
-{% raw %}
         <p>Current weather: {{ weather }}</p>
-{% endraw %}
 
 ![](../images/django-weather-json.png)
 
 6. Like with location, ```weather``` contains the entire OpenWeather JSON response. We can make things prettier by displaying just specific values. Update the "Current weather" line in **index.html** with the code below.
 
-{% raw %}
         <p>Current weather:</p>
         <table>
             <tr><td>Temperature</td><td>{{ weather.main.temp }} F</td></tr>
             <tr><td>Wind</td><td>{{ weather.wind.speed }} mph</td></tr>
             <tr><td>Conditions</td><td>{{ weather.weather.0.description }}</td></tr>
         </table>
-{% endraw %}
 
 ![](../images/django-weather-pretty.png)
 
 # Next steps
+
+## Add CSS
+
+## Add a chart
 
 
 
