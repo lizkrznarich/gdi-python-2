@@ -17,7 +17,7 @@ Before we can get started, we first need to set up a new Django project in Repli
 
 1. Sign into your Replit account at [replit.com](https://replit.com). If you don't have an account, create a new one.
 
-2. In Replit, click the **+ Create** button. In the window that opens, type **django** in the Template field and choose the **dajngo replit** option from the dropdown. Optionally, add a custom title in the Title field and click **+ Create Repl**
+2. In Replit, click the **+ Create** button. In the window that opens, type **django** in the Template field and choose the **django replit** option from the dropdown. Optionally, add a custom title in the Title field and click **+ Create Repl**
 
 ![](../images/create-repl-django.png)
 
@@ -128,7 +128,7 @@ In this section, we'll create a new view that points to the homepage template, a
 
 In order to get the user's location, we first need to get their IP address. An IP address identifies the device that a user's request is coming from.
 
-1. Open **views.py** and update the **index(request)** function so that it gets the user's IP address from the built-in Dajngo request object and passes it to the index.html template.
+1. Open **views.py** and update the **index(request)** function so that it gets the user's IP address from the built-in Django request object and passes it to the index.html template. The user's IP address can be located either in the ```HTTP_X_FORWARDED_FOR``` or ```REMOTE_ADDR``` request header, depending on their network configuration, so we need to check both headers.
 
         def index(request):
             x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
