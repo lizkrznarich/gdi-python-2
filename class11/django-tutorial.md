@@ -268,7 +268,7 @@ Our app works great, but it doesn't look so good. We'll add some basic styles us
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-2. We won't cover Bootstrap in depth here, but we can borrow some formatting from the [Bootstrap example file](https://github.com/twbs/examples/blob/main/starter/index.html#L48). Update your index.html file to add the div tags below.
+2. We won't cover Bootstrap in depth here, but we can borrow some formatting from the [Bootstrap example file](https://github.com/twbs/examples/blob/main/starter/index.html#L48). Update your **index.html** file to add the div tags below.
 
         {% block content %}
         <div class="container my-5">
