@@ -9,7 +9,8 @@ In this tutorial, we'll create a basic Django app in Replit that displays the we
 5. [Get the user's location](#get-the-users-location)
 6. [Configure OpenWeather API key](#configure-openweather-api-key)
 7. [Get the current weather for the user's location](#get-weather-data-for-the-users-location)
-8. [Next steps!](#next-steps)
+8. [Add CSS stylesheets](#add-css-stylesheets)
+9. [Add a chart with Plotly](#add-a-chart-with-plotly)
 
 # Django project setup
 
@@ -21,9 +22,9 @@ Before we can get started, we first need to set up a new Django project in Repli
 
 ![](../images/create-repl-django.png)
 
-3. The basic Django file structure will appear in the Files panel at left. Click README.MD to see the instructions for getting Django up and running.
+3. The basic Django file structure will appear in the **Files** panel at left. Click **README.MD** to see the instructions for getting Django up and running.
 
-4. Per README.MD, open the Shell tab in the right panel and run the following command to generate a secret key.
+4. Per **README.MD**, open the **Shell** tab in the right panel and run the following command to generate a secret key.
 
         python
         import secrets
@@ -259,11 +260,76 @@ Now that we have the user's location and our OpenWeather API key, we can get the
 
 ![](../images/django-weather-pretty.png)
 
-# Next steps
+# Add CSS stylesheets
 
-## Add CSS
+Our app works great, but it doesn't look so good. We'll add some basic styles using the [Twitter Bootstrap framework](https://getbootstrap.com/), then customize it with a local CSS stylesheet.
 
-## Add a chart
+1. Add the Twitter Bootstrap CSS file to your templates by pasting the code below into **base.html**, inside the ```<head></head>``` tags.
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+2. We won't cover Bootstrap in depth here, but we can borrow some formatting from the [Bootstrap example file](https://github.com/twbs/examples/blob/main/starter/index.html#L48). Update your index.html file to add the div tags below.
+
+        {% block content %}
+        <div class="container my-5">
+            <div class="col-lg-8 px-0">
+                <h1>Current weather</h1>
+                <p>You are visiting from IP address {{ ip }}</p>
+                <p>You are located in {{ location.city }}, {{ location.region }}, {{ location.countryCode }}</p>
+                <hr class="col-1 my-4">
+                <table>
+                    <tr><td>Temperature</td><td>{{ weather.main.temp }} F</td></tr>
+                    <tr><td>Wind</td><td>{{ weather.wind.speed }} mph</td></tr>
+                    <tr><td>Conditions</td><td>{{ weather.weather.0.description }}</td></tr>
+                </table>
+            </div>
+        </div>
+        {% endblock content %}
+
+![](../images/django-weather-bootstrap.png)
+
+3. That's looking better already, but we can customize it further by adding our own CSS file. First, we need a folder to hold our static web assets, like CSS and images. In the **Files** panel, hover over **django_project**, click the 3 dots icon and choose **Add folder**.
+
+4. Type **static** in the folder name box and press **Enter/Return** to create the folder. Important! Django is pre-configured to look for static assets in a folder named "static".
+
+5. Create a new folder named **css** inside the **static** folder that you just created.
+
+6. Hover over **css**, click the 3 dots icon and choose **Add file**.
+
+7. Type **style.css** in the file name box and press**Enter/Return** to create the file.
+
+8. Paste the code below into the **style.css** file.
+
+        body {
+            background-color: lightblue;
+        }
+
+        h1 {
+            color: navy;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: .5em;
+            padding: 1em;
+            width: 50%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+9. Django knows that static assets should be in a folder named **static**, but we still need to tell Django where to look for the **static** folder. Open **settings.py**, look for the line with ```STATIC_URL = '/static/'``` and paste the code below on the next line.
+
+        STATICFILES_DIRS = (os.path.join(BASE_DIR, 'django_project', 'static'), )
+
+![](../images/django-weather-static-settings.png)
+
+10. Finally, we need to add our CSS file to our templates. Open **base.html** and paste ``{% load static %}``` at the top of the file. Paste the code below inside ```<head></head>```, on the line after the Boostrap CSS that we just added.
+
+        <link rel="stylesheet" href="{% static "css/style.css" %}">
+
+![](../images/django-weather-custom-css.png)
+
+# Add a chart with Plotly
 
 
 
