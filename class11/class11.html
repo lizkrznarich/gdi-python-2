@@ -312,7 +312,8 @@
                         import requests
                         params = {'api_key': 'eIkpQYXKa6mq1J75qPMYc0Rvit3K8wNaytEJCnTn'}
                         response = requests.get("https://api.nasa.gov/planetary/apod", params=params)
-                        url = response['url']
+                        json = response.json()
+                        url = json['url']
                         print(url)
                     </code></pre>
                 </section>
@@ -331,7 +332,8 @@
                         try:
                             response = requests.get("https://api.nasa.gov/planetary/apo", params=params)
                             response.raise_for_status()
-                            url = response['url']
+                            json = response.json()
+                            url = json['url']
                             print(url)
                         except requests.exceptions.HTTPError as e:
                             print("Oh no, an error happened: ", e)
