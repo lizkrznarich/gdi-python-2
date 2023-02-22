@@ -353,7 +353,7 @@ We're only touching the very tip of the Plotly iceberg here! For (much) more inf
         import plotly.graph_objs as go
         import plotly.io as pio
 
-4. In **views.py**, add a new function that creates a bar chart with some hard-coded data by copying and pasting the code below. By passing ```output_type='div'``` as an argument to the ```plot()``` function, the entire bar chart will be returned as HTML, which we can pass to our template.
+4. In **views.py**, add a new function that creates a bar chart with some hard-coded data by copying and pasting the code below. This functions returns the entire bar chart will be returned as HTML, which we can pass to our template.
 
         def get_chart():
             temp_types = ['High', 'Low', 'Feels like']
@@ -362,7 +362,7 @@ We're only touching the very tip of the Plotly iceberg here! For (much) more inf
             fig = go.Figure(data=data)
             return pio.to_html(fig)
 
-We use the [.Bar() method](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Bar.html) of the graph_objects library to create a new bar chart data object and the [.Figure() method](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html) to create the rendered figure. Finally, we use the [.to_html()](https://plotly.com/python-api-reference/generated/plotly.io.to_html.html) method of the io library to convert the rendered chart to HTML. These methods accept many more arguments that allow for customization - read the docs for details!
+We use the [.Bar() method](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Bar.html) of the plotly.graph_objects library to create a new bar chart data object and the [.Figure() method](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html) to create the rendered figure. Finally, we use the [.to_html()](https://plotly.com/python-api-reference/generated/plotly.io.to_html.html) method of the plotly.io library to convert the rendered chart to HTML. These methods accept many more arguments that allow for customization - read the docs for details!
 
 5. Update your **index()** function to call the **get_chart()** function and pass the returned chart to the template.
 
