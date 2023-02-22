@@ -11,6 +11,7 @@ In this tutorial, we'll create a basic Django app in Replit that displays the we
 7. [Get the current weather for the user's location](#get-weather-data-for-the-users-location)
 8. [Add CSS stylesheets](#add-css-stylesheets)
 9. [Add a chart with Plotly](#add-a-chart-with-plotly)
+10. [Bonus activity: Add weather icons](#bonus-activity-add-weather-icons)
 
 # Django project setup
 
