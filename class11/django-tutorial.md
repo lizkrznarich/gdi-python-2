@@ -270,19 +270,21 @@ Our app works great, but it doesn't look so good. We'll add some basic styles us
 
 2. We won't cover Bootstrap in depth here, but we can borrow some formatting from the [Bootstrap example file](https://github.com/twbs/examples/blob/main/starter/index.html#L48). Update your **index.html** file to add the div tags below.
 
+        {% extends "base.html" %}
+
         {% block content %}
         <div class="container my-5">
-            <div class="col-lg-8 px-0">
-                <h1>Current weather</h1>
-                <p>You are visiting from IP address {{ ip }}</p>
-                <p>You are located in {{ location.city }}, {{ location.region }}, {{ location.countryCode }}</p>
-                <hr class="col-1 my-4">
-                <table>
-                    <tr><td>Temperature</td><td>{{ weather.main.temp }} F</td></tr>
-                    <tr><td>Wind</td><td>{{ weather.wind.speed }} mph</td></tr>
-                    <tr><td>Conditions</td><td>{{ weather.weather.0.description }}</td></tr>
-                </table>
-            </div>
+        <div class="col-lg-12 px-0 text-center">
+            <h1>Current weather</h1>
+            <p>You are visiting from IP address {{ ip }}</p>
+            <p>You are located in {{ location.city }}, {{ location.region }}, {{ location.countryCode }}</p>
+            <hr>
+            <table width="100%">
+                <tr><td>Temperature</td><td>{{ weather.main.temp }} F</td></tr>
+                <tr><td>Wind</td><td>{{ weather.wind.speed }} mph</td></tr>
+                <tr><td>Conditions</td><td>{{ weather.weather.0.description }}</td></tr>
+            </table>
+        </div>
         </div>
         {% endblock content %}
 
@@ -335,9 +337,9 @@ Our app works great, but it doesn't look so good. We'll add some basic styles us
 
 Plotly also makes its underlying code open source and publishes Python packages that allow you to create same types of charts/graphs in Python applications that don't use the full DASH framework.
 
-There are several different ways to build data visualizations using Plotly Python libraries. In this section, we'll use the [Plotly Graph Objects](https://plotly.com/python/graph-objects/) library to create a very simple bar chart using the temperature data returned by the OpenWeather API. We'll use "offline" plotting mode, which allows us to feed data directly into a graph object with no need for a Plotly account.
+There are several different ways to build data visualizations using [Plotly Python libraries](https://pypi.org/project/plotly). In this section, we'll use the [Plotly Graph Objects](https://plotly.com/python/graph-objects/) library to create a very simple bar chart using the temperature data returned by the OpenWeather API.
 
-We're only touching the very tip of the Plotly iceberg here! For (much) more information, see [Plotly docs](https://plotly.com/pytho). Tutorials point also has a nice [tutorial about creating differen types of charts with Graph Objects](https://www.tutorialspoint.com/plotly/plotly_bar_and_pie_chart.htm).
+We're only touching the very tip of the Plotly iceberg here! For (much) more information, see [Plotly docs](https://plotly.com/pytho). Tutorials point also has a nice [tutorial about creating charts with Graph Objects](https://www.tutorialspoint.com/plotly/plotly_bar_and_pie_chart.htm).
 
 1. To use Plotly, we first need to install it in our Replit environment. In the right sidebar, click **Packages**, search for Plotly in the window that opens, and click the **+** to install it.
 
@@ -345,10 +347,10 @@ We're only touching the very tip of the Plotly iceberg here! For (much) more inf
 
 2. To make Django aware of our newly-installed package, we need to restart it. To restart, click the **Stop** button at the top of the screen, then click the **Run** button.
 
-3. In your **views.py** file add the following import statements beneath the existing imports.
+3. In your **views.py** file, add the following import statements beneath the existing imports.
 
-        from plotly.offline import plot
         import plotly.graph_objs as go
+        import plotly.io as pio
 
 4. In **views.py**, add a new function that creates a bar chart with some hard-coded data by copying and pasting the code below. By passing ```output_type='div'``` as an argument to the ```plot()``` function, the entire bar chart will be returned as HTML, which we can pass to our template.
 
@@ -357,9 +359,11 @@ We're only touching the very tip of the Plotly iceberg here! For (much) more inf
             temps = [35, 17, 23]
             data = [go.Bar(x=temp_types, y=temps)]
             fig = go.Figure(data=data)
-            return plot(fig, output_type='div')
+            return pio.to_html(fig)
 
-5. Update your **index()** function to call the get_chart() function and add pass the returned chart code to the template.
+We use the [.Bar() method](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Bar.html) of the graph_objects library to create a new bar chart data object and the [.Figure() method](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html) to create the rendered figure. Finally, we use the [.to_html()](https://plotly.com/python-api-reference/generated/plotly.io.to_html.html) method of the io library to convert the rendered chart to HTML. These methods accept many more arguments that allow for customization - read the docs for details!
+
+5. Update your **index()** function to call the **get_chart()** function and pass the returned chart to the template.
 
         def index(request):
             x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -380,6 +384,7 @@ We're only touching the very tip of the Plotly iceberg here! For (much) more inf
 
 6. In **index.html**, add the lines below beneath the closing ```</table>``` tag to display the chart. By default, Django templates interpret string variables as text (not code). To parse the value of the ```chart``` variable as raw HTML markup, we need to add ```{% autoescape off %}{% endautoescape %}``` template tags ([autoescape docs](https://docs.djangoproject.com/en/4.1/ref/templates/builtins/#autoescape)).
 
+        <hr>
         {% autoescape off %}
         {{ chart }}
         {% endautoescape %}
@@ -413,6 +418,8 @@ We're only touching the very tip of the Plotly iceberg here! For (much) more inf
 Each OpenWeather API response includes a code for an icon that represents the current weather condition. You can get the image that corresponds to each code from OpenWeather and add display it in your application, along with the weather data. See the [Weather Icons documentation](https://openweathermap.org/weather-conditions)
 
 Try adding the corresponding weather icon to your Django app!
+
+![](../images/django-icon.png)
 
 
 
