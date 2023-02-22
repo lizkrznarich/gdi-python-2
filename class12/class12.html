@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title>Higher Order Functions</title>
+		<title>Django project</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reset.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/theme/simple.css" id="theme">
@@ -88,6 +88,10 @@
                 margin: 10px;
             }
 
+            .reveal section ul li {
+                margin-bottom: .3em;
+            }
+
 			@media print
 			{
 				.no-print, .no-print *
@@ -116,8 +120,9 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section class="heading-only">
-					<h1>Higher Order Functions</h1>
+
+				<section class="heading-only" style="padding-top:5%">
+                    <h2>Django project</h2>
 
 					<div class="no-print" style="text-align: left; margin-top: 100px; font-size: 70%;">
 						Tips for navigating the slides:
@@ -129,712 +134,148 @@
 					</div>
 				</section>
 
-                <section class="heading-only">
-                    <h2>Designing Functions</h2>
-                </section>
 
                 <section>
-                    <h3>Pure functions</h3>
-
-                    <p>A <strong>pure</strong> function takes an input, returns a predictable output based on the input, and has no side effects.</p>
-
-                    <pre style="font-size:0.65em; margin-bottom:40px;"><code data-trim data-noescape class="python">
-                    def songify(text):
-                        return "🎼" + text + "🎶"
-                    </code></pre>
-
-                    <div class="fragment">
-                    <p>An <strong>impure</strong> function either has side effects:</p>
-                    <pre style="font-size:0.65em;"><code data-trim data-noescape class="python">
-                    def songify(text):
-                        print("🎼" + text + "🎶")
-                    </code></pre>
-
-                    <p>Or it has non-deterministic output (typically due to randomization):</p>
-                    <pre style="font-size:0.65em"><code data-trim data-noescape class="python">
-                    def songify(text):
-                        return random.choice("[🎼", "🎵", "🎶"]) + text + "🎶"
-                    </code></pre>
-                    </div>
-
-                </section>
-
-                <section>
-                    <h3>Describing Functions</h3>
-
-                    <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
-                    def square(x):
-                        """Returns the square of X."""
-                        return x * x
-                    </code></pre>
-
-                    <table class="smaller">
-                        <thead>
-                            <tr>
-                                <th>Aspect
-                                <th>Example
-                        <tbody>
-                            <tr>
-                                <td>A function's <strong>domain</strong> is the set of all inputs
-                                    it might possibly take as arguments.
-                                <td><code>x</code> is a number
-                            </tr>
-                            <tr>
-                                <td>A function's <strong>range</strong> is the set of output values
-                                    it might possibly return.
-                                <td><code>square</code> returns a non-negative real number
-                            <tr>
-                                <td>A pure function's <strong>behavior</strong> is the relationship
-                                    it creates between input and output.
-                                <td><code>square</code> returns the square of <code>x</code>
-                    </table>
-                </section>
-
-                <section>
-                    <h3>Designing a function</h3>
-
-                    <p>Give each function exactly one job, but make it apply to many related situations.</p>
-
-                    <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
-                    round(1.23)     # 1
-                    round(1.23, 0)  # 1
-                    round(1.23, 1)  # 1.2
-                    round(1.23, 5)  # 1.23
-                    </code></pre>
-
-                    <p><strong>Don't Repeat Yourself (DRY)</strong>: Implement a process just once, execute it many times.</p>
-
-                </section>
-
-                <!-- TODO(CS61A): Missing generalization example, dont love the area one, maybe watch John's video -->
-
-                <section class="heading-only">
-                    <h2>Higher-order functions</h2>
-                </section>
-
-                <section>
-                    <h3>What are higher-order functions?</h3>
-
-                    <p>A function that either:
-                    <ul>
-                        <li>Takes another function as an argument
-                        <li>Returns a function as its result
-                    </ul>
-
-                    <p>All other functions are considered first-order functions.</p>
-                </section>
-
-                <!-- TODO(CS61A) Bring back this example
-                <section>
-                    <h3>Functions as arguments</h3>
-
-                    <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
-                    def cube(k):
-                        return k ** 3
-
-                    def summation(n, term):
-                        """Sum the first N terms of a sequence."""
-                        total = 0
-                        k = 1
-                        while k <= n:
-                            total = total + term(k)
-                            k = k + 1
-                        return total
-                    </code></pre>
-
-                    <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
-                    summation(5, cube)   # 225
-                    </code></pre>
-
-                </section>
-                -->
-
-                <section class="heading-only">
-                    <h2>Functions as arguments</h2>
-                </section>
-
-                <section>
-                    <h3>Some first-order functions</h3>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def double_list(old_list):
-                        """Returns a new list with each item doubled.
-
-                        >>> double_list([1, 2, 3])
-                        [2, 4, 6]
-                        """
-                        new_list = []
-                        for item in old_list:
-                            new_list.append(item * 2)
-                        return new_list
-                    </code></pre>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def lower_list(old_list):
-                        """Returns a new list with each item lowercased.
-
-                        >>> lower_list(["SuP", "HELLO", "Hi"])
-                        ["sup", "hello", "hi"]
-                        """
-                        new_list = []
-                        for item in old_list:
-                            new_list.append(item.lower())
-                        return new_list
-                    </code></pre>
-
-                    <p>Notice any similarities?</p>
-                </section>
-
-                <section>
-                    <h3>A higher-order generalization</h3>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def transform_list(old_list, transformer):
-                        """Returns a new list with each item transformed by transformer."""
-                        new_list = []
-                        for item in old_list:
-                            new_list.append(transformer(item))
-                        return new_list
-                    </code></pre>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def double(num):
-                        return num * 2
-
-                    transform_list([1, 2, 3], double)
-                    </code></pre>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def lower(text):
-                        return text.lower()
-
-                    transform_list(["SuP", "HELLO", "Hi"], lower)
-                    </code></pre>
-                </section>
-
-
-                <section>
-                    <h3>Example #2: Some first-order functions</h3>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def find_evens(old_list):
-                        """Returns a new list with only the even numbers.
-
-                        >>> find_evens([1, 2, 3, 4])
-                        [2, 4]
-                        """
-                        new_list = []
-                        for item in old_list:
-                            if item % 2 == 0:
-                                new_list.append(item)
-                        return new_list
-                    </code></pre>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def find_fourletterwords(old_list):
-                        """Returns a new list with only the 4-letter words.
-
-                        >>> lower_list(["braid", "bode", "brand", "band"])
-                        ["bode", "band"]
-                        """
-                        new_list = []
-                        for item in old_list:
-                            if len(item) == 4:
-                                new_list.append(item)
-                        return new_list
-                    </code></pre>
-
-                    <p>Notice any similarities?</p>
-                </section>
-
-
-                <section>
-                    <h3>Example #2: A higher-order generalization</h3>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def filter_list(old_list, filter):
-                        """Returns a new list with only items that pass the filter."""
-                        new_list = []
-                        for item in old_list:
-                            if filter(item):
-                                new_list.append(item)
-                        return new_list
-                    </code></pre>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def is_even(num):
-                        return num % 2 == 0
-
-                    filter_list([1, 2, 3, 4], is_even)
-                    </code></pre>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def is_fourletterword(text):
-                        return len(text) == 4
-
-                    filter_list(["braid", "bode", "brand", "band"], is_fourletterword)
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Exercise</h3>
-
-                    <ul>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/HOFsTransformers">Transformers</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/HOFsFilterers">Filterers</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/HOFsSummation">Summation</a></li>
-                    </ul>
-
-                    <p>💬  If you need any tips or help, just DM on Zoom and say 'I'm stuck on...' or 'Can you give me a tip on...'</p>
-
-                </section>
-
-                <section>
-                    <h3>Built-in map function</h3>
-
-                    <p>
-                    <a target="_blank" href="https://docs.python.org/3/library/functions.html#map"><code>map(func, iterable)</code></a>:
-                    Applies <code>func(x)</code> for <code>x</code> in <code>iterable</code>
-                    and returns an <code>iterator</code>
-                    </p>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def double(num):
-                        return num * 2
-
-                    for num in map(double, [1, 2, 3]):
-                        print(num)
-                    </code></pre>
-
-                    <pre style="font-size:0.6em; margin-bottom:40px;"><code data-trim data-noescape class="python">
-                    def lower(text):
-                        return text.lower()
-
-                    for word in map(lower, ["SuP", "HELLO", "Hi"]):
-                        print(word)
-                    </code></pre>
-
-                    <div class="fragment">
-                    <p>Turn the iterator into a list using <code>list()</code></p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    doubled = list(map(double, [1, 2, 3]))
-
-                    lowered = list(map(lower, ["SuP", "HELLO", "Hi"]))
-                    </code></pre>
-                    </div>
-                </section>
-
-
-                <section>
-                    <h3>Built-in filter function</h3>
-
-                    <p>
-                    <a target="_blank" href="https://docs.python.org/3/library/functions.html#filter"><code>filter(func, iterable)</code></a>:
-                    Returns an iterator from the items of <code>iterable</code> where <code>func(item)</code> is true.
-                    </p>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def is_even(num):
-                        return num % 2 == 0
-
-                    for num in filter(is_even, [1, 2, 3, 4]):
-                        print(num)
-                    </code></pre>
-
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    def is_fourletterword(text):
-                        return len(text) == 4
-
-                    for word in filter(is_fourletterword, ["braid", "bode", "brand", "band"]):
-                        print(word)
-                    </code></pre>
-
-                    <div class="fragment">
-                    <p>Turn the iterator into a list using <code>list()</code></p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    evens = list(filter(is_even, [1, 2, 3, 4]))
-
-                    filtered = list(is_fourletterword, ["braid", "bode", "brand", "band"]))
-                    </code></pre>
-                    </div>
-                </section>
-
-                <section>
-                    <h3>Exercise</h3>
-
-                    <ul>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/HOFsMap">Map</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/HOFsFilter">Filter</a></li>
-                        <li><a target="_blank" href="https://replit.com/team/gdi01/HOFsFindNegativeTemps">Find Negative Temps</a></li>
-                    </ul>
-
-                    <p>💬  If you need any tips or help, just DM on Zoom and say 'I'm stuck on...' or 'Can you give me a tip on...'</p>
-
-                </section>
-
-
-
-                <!--<section> uses lambda!
-                    <h3>Built-in max/min functions</h3>
-
-                    <p><a target="_blank" href="https://docs.python.org/3/library/functions.html#max"><code>max(iterable, key=None)</code></a>: Return the max value in <code>iterable</code>,
-                    using optional <code>key</code> function for ordering.</p>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    max_grade = max([73, 89, 74, 95])
-                    max_letter = max(["C+", "B+", "C", "A"])
-
-                    coords = [ (37, -144), (-22, -115), (56, -163) ]
-                    most_north = max(coords, key=lambda coord: coord[0])
-                    most_south = min(coords, key=lambda coord: coord[0])
-
-                    total_points = sum([73, 89, 74, 95], 0)
-
-                    all_true = all([True, True, True, True])
-                    any_true = any([False, False, False, True])
-                    </code></pre>
-
-                </section>-->
-
-                <section class="heading-only">
-                    <h2>Functions as return values</h2>
-                </section>
-
-                <section>
-                    <h3>A function-making function</h3>
-
-                    <p>Some first-order functions:</p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def h1_tag(text):
-                        return f"&lt;h1&gt;{text}&lt;/h1&gt;"
-
-                    def p_tag(text):
-                        return f"&lt;p&gt;{text}&lt;/p&gt;"
-
-                    h1_tag("Apples and Bananas")
-                    p_tag("I like to eat eat eat")
-                    p_tag("apples and bananas!")
-                    </code></pre>
-                    <div class="fragment">
-                    <p>An approach with higher-order functions:</p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def tag_maker(tag):
-                        def make_tag(text):
-                            return f"&lt;{tag}&gt;{text}&lt;/{tag}&gt;"
-                        return make_tag
-
-                    h1_tag = tag_maker("h1")
-                    p_tag = tag_maker("p")
-                    h1_tag("Apples and Bananas")
-                    p_tag("I like to eat eat eat")
-                    p_tag("apples and bananas!")
-                    </code></pre>
-                </div>
-                </section>
-
-                <section>
-                    <h3>A tracing HOF</h3>
-
-                    <p>Instead of...</p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def square(x):
-                        print("->", x)
-                        result = x * x
-                        print("<-", result)
-                        return result
-                    </code></pre>
-
-                    <p>We can make a higher-order function:</p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def trace1(f):
-                        """Return a function that takes a single argument, x, prints it,
-                        computes and prints F(x), and returns the computed value."""
-                        def traced(x):
-                            print("->", x)
-                            r = f(x)
-                            print("<-", r)
-                            return r
-                        return traced
-
-                    def square(x):
-                        return x * x
-
-                    trace1(square)(5)
-                    </code></pre>
-                </section>
-
-                <section class="heading-only">
-                    <h2>Decorators</h2>
-                </section>
-
-                <section>
-                    <h3>The decorator syntax</h3>
-
-                    <p>Python provides a special syntax for wrapping a function
-                        in another function.</p>
-
-                    <p>This notation:</p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    @EXPR
-                    def some_func(...):
-                        ...
-                    </code></pre>
-
-                    <p>is equivalent to:</p>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    def some_func(...):
-                        ...
-
-                    some_func = EXPR(some_func)
-                    </code></pre>
-
-                    <p><code>EXPR</code> is either a function name or function call.</p>
-
-                    <p>Using the <code>trace1</code> function from earlier...</p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    @trace1
-                    def square(n):
-                        return n * n
-                    </code></p>
-
-                </section>
-
-                <section class="heading-only">
-                    <h2>Lambda expressions</h2>
-                </section>
-
-                <section>
-                    <h3>Lambda syntax</h3>
-
-                    <p>A <strong>lambda expression</strong> is a simple function definition
-                        that evaluates to a function.</p>
-
-                    <p>The syntax:</p>
-                    <pre style="font-size:1.0em"><code data-trim data-noescape class="python">
-                    lambda &lt;parameters&gt;: &lt;expression&gt;
-                    </code></pre>
-                    <p>A function that takes in <code>parameters</code> and returns the result of <code>expression</code>.</p>
-
-                    <div class="fragment" style="margin-top:40px;">
-                    <p>A lambda version of the <code>square</code> function:</p>
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    square = lambda x: x * x
-                    </code></pre>
-                    <p>A function that takes in parameter <code>x</code> and returns the result of <code>x * x</code>.</p>
-                    </div>
-                </section>
-
-                <section>
-                    <h3>Lambda syntax tips</h3>
-
-                    <p>A lambda expression does <strong>not</strong> contain
-                        return statements or any statements at all.</p>
-
-                    <p>
-                    Incorrect:
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    square = lambda x: return x * x
-                    </code></pre>
-
-                    Correct:
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    square = lambda x: x * x
-                    </code></pre>
-                    </p>
-
-                    <div class="fragment">
-                    <p style="margin-top:40px;">Incorrect:
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    lambda x: if x > 0: x else: 0
-                    </code></pre>
-                    Correct:
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    lambda x: x if x > 0 else 0
-                    </code></pre>
-                    </p>
-                    </div>
-                </section>
-
-                <!-- TODO(CS61A): Deneros zombie slide about intrinsic name-->
-
-                <section>
-                    <h3>Lambda examples</h3>
-
-                    <p>It's convenient to use a lambda expression when you
-                        are passing in a simple function as an argument to another function.</p>
-
-                    <p>Instead of...</p>
-                    <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
-                    def double(num):
-                        return num * 2
-
-                    for num in map(double, [1, 2, 3]):
-                        print(num)
-                    </code></pre>
-
-                    <p>We can use a lambda:</p>
-                    <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
-                    for num in map(lambda num: num * 2, [1, 2, 3]):
-                        print(num)
-                    </code></pre>
-
-                </section>
-
-                <section class="heading-only">
-                    <h2>Icon demo</h2>
-                </section>
-
-
-                <section>
-                    <h3>An OOP Icon</h3>
-
-                    <p>Goal: Use OOP to represent an Icon with pixels at a particular
-                        location with a particular color.
-                    </p>
-
-                    <img src="https://ka-perseus-images.s3.amazonaws.com/774cbb61de674df2c41e64ed127d24b2c3d56622.png" alt="Diagram of icon with pixels">
-
-                    <p>Visit the <a target="_blank" href="https://replit.com/@pamelafox/IconClass">Repl.it demo</a>
-                        to see all the classes used with the <a target="_blank" href="https://docs.python.org/3/library/tkinter.html">Python tkinter library</a>
-                         for graphics rendering.</p>
-                </section>
-
-
-                <section>
-                    <h3>The Color class</h3>
-
-                    <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
-                    class Color:
-
-                        def __init__(self, r, g, b):
-                            self.r = r
-                            self.g = g
-                            self.b = b
-
-                        def to_hex(self):
-                            return f"#{self.r:02x}{self.g:02x}{self.b:02x}"
-                    </code></pre>
-
-                    <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
-                    red = Color(255, 0, 0)
-                    print(red.to_hex())
-                    </code></pre>
-
-                </section>
-
-                <section>
-                    <h3>The Pixel class</h3>
-
-                    <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
-                    class Pixel:
-                        def __init__(self, x, y, r, g, b):
-                            self.x = x
-                            self.y = y
-                            self.color = Color(r, g, b)
-                    </code></pre>
-
-                    <pre style="font-size:0.8em"><code data-trim data-noescape class="python">
-                    pixel = Pixel(0, 7, Color(255, 0, 0))
-                    print(pixel.color.to_hex())
-                    </code></pre>
-
-                </section>
-
-                <section>
-                    <h3>The Icon class</h3>
-
-                    <pre style="font-size:0.55em"><code data-trim data-noescape class="python">
-                    class Icon:
-
-                        def __init__(self, width, height, pixels=None):
-                            self.width = width
-                            self.height = height
-                            self.pixels = pixels
-                            if not self.pixels:
-                                self.pixels = [ Pixel(x, y, 0, 0, 0)
-                                    for x in range(width) for y in range(height)]
-                    </code></pre>
-
-                    <pre style="font-size:0.6em"><code data-trim data-noescape class="python">
-                    icon = Icon(2, 2, [Pixel(0, 0, 255, 0, 0),
-                        Pixel(0, 1, 255, 50, 0),
-                        Pixel(1, 0, 255, 100, 0),
-                        Pixel(1, 1, 255, 150, 0)])
-
-                    for pixel in icon.pixels:
-                        pixel.color.g += 50
-                    </code></pre>
-
-                </section>
-
-                <section>
-                    <h3>Using HOFs</h3>
-
-                    <p>What happens if we...</p>
-
-                    <p>map the pixels?</p>
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    changer = lambda p: Pixel(p.x, p.y, p.x * 30, p.color.g + 30, p.y * 30)
-                    icon.pixels = list(map(changer, icon.pixels))
-                    </code></pre>
-                    <br>
-                    <p>filter the pixels?</p>
-                    <pre style="font-size:0.7em"><code data-trim data-noescape class="python">
-                    is_odd = lambda p: p.x % 2 == 0
-                    icon.pixels = list(filter(is_odd, icon.pixels))
-                    </code></pre>
-                </section>
-
-                <section class="heading-only">
-                    <h2>Final thoughts</h2>
-                </section>
-
-                <section>
-                    <h3>Keep using Python!</h3>
-
-                    <p>Thanks to libraries, you can use Python to make...</p>
-                    <ul>
-                        <li>Webapp backends (Flask, Django)</li>
-                        <li>Web scraping (BeautifulSoup)</span></li>
-                        <li>Natural Language Processing (NLTK)</li>
-                        <li>Data analysis (Numpy, Pandas, Matplotlib)</li>
-                        <li>Machine Learning (FastAi, PyTorch, Keras)</li>
-                        <li>Scientific computing (SciPy)</li>
-                        <li>Games (Pygame)</li>
+                    <h3>Class outline:</h3>
+
+                    <ul style="font-size:1.0em;">
+                        <li>Review
+                        <li>Getting external data in Django
+                        <li>Django template variables
+                        <li>Charts with Plotly
+                        <li>Wrap-up
                     </ul>
                 </section>
-
+                <section class="heading-only">
+                    <h2>Review: Frameworks</h2>
+                </section>
                 <section>
-                    <h3>Learn more Python</h3>
-
-                    <p>We did not cover...</p>
-
+                    <h3>What's a framework?</h3>
+                    <p>Software frameworks are packages of starter code that you can build on. They're often used to develop web applications quickly. Frameworks do things like:</p>
                     <ul>
-                        <li>Sets
-                        <li>Generators
-                        <li>List comprehensions
-                        <li>Global vs. nonlocal
-                        <li>Running Python locally
-                        <li>Multi-file projects
-                        <li>Pip install
+                        <li>Provide code for common pieces of functionality, like serving web pages and authenticating users</li>
+                        <li>Help you follow security best practices without having to be a web security expert</li>
+                        <li>Allow you to focus on building functionality that's unique to your app</li>
                     </ul>
                 </section>
-
-
                 <section>
-                    <h3>Feedback survey</h3>
-
-                    <p>Please fill out the <a target="_blank" href="https://forms.gle/P6qDrJ1Q631JHduo9">GDI feedback survey</a>
-                        to help us improve future classes.</p>
-
-                    <p>Thanks for being great students!</p>
+                    <h3>Python web app frameworks</h3>
+                    <p>There are many Python frameworks out there! The 2 most popular general-purpose frameworks for web applications are:</p>
+                    <ul>
+                        <li><a href="https://www.djangoproject.com/Django">Django</a></li>
+                        <li><a href="https://flask.palletsprojects.com/">Flask</a></li>
+                    </ul>
+                    <p>Both allow you to build web applications and/or APIs, and both have a robust extension ecosystem</p>
                 </section>
-
+                <section class="heading-only">
+                    <h2>Django</h2>
+                </section>
+                <section>
+                    <h3>Django features</h3>
+                    <p>In this class, we'll use Django. Its features include:</p>
+                    <ul>
+                        <li>Built-in web server for development and testing</li>
+                        <li>Functionality for processing HTTP requests with custom logic</li>
+                        <li>Template system for displaying dynamic web pages to users</li>
+                        <li>Database connectivity + built-in methods for reading/writing</li>
+                        <li>Data modeling functionality to support converting between database data and Python objects</li>
+                        <li>Built-in admin interface + authentication features</li>
+                        <li>And much more! <a href="https://docs.djangoproject.com/en/4.1/intro/overview/">See feature overview</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Ways to use Django</h3>
+                    <ul>
+                        <li><b>All-in-one MVT (model-view-template)</b> app, which means that both the app logic and the HTML page construction happen on the server side, within Django. This doesn't allow page content to change after loading, unless you add Javascript over the top.</li>
+                        <li><b>REST API backend only</b> that performs app logic and returns JSON to a separate frontend app (ex, a Javascript framework like React or Angular). This is a more "modern" approach that allows content to change after page load.</li>
+                    </ul>
+                    <p>In this class, we'll use the MVT approach</p>
+                </section>
+                <section class="heading-only">
+                    <h2>Django MVT</h2>
+                </section>
+                <section>
+                    <h3>Django MVT</h3>
+                    <ul>
+                        <li><b>Model</b> The data access layer. This layer contains everything about the data: how to access it, how to validate it, which behaviors it has, and the relationships between the data. <em>Note that this layer is not required! Sometimes a request only generates a view, which populates a template.</em></li>
+                        <li><b>View</b> The logic layer. This layer contains the logic that accesses the model and populates the appropriate template.</li>
+                        <li><b>Template</b> The presentation layer. This layer defines how something should be displayed on a Web page .</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Django MVT</h3>
+                    <img src="../images/django_mvt.png">
+                </section>
+                <section>
+                    <h3>Installing Django locally</h3>
+                    <ul>
+                        <li><a href="https://pypi.org/project/Django/">Django is available in PyPi</a> and can be installed with <code>pip install</code>, like any other package.</li>
+                        <li>When you install Django, you're downloading the source code which is maintained in <a href="https://github.com/django/django">Github</a></li>
+                        <li>After installing Django, the first step is to <a href="https://docs.djangoproject.com/en/4.1/intro/tutorial01/#creating-a-project">create a new project</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Django in Replit</h3>
+                    <p>For our project, we'll run Django in Replit. From here on out, we'll follow this tutorial:</p>
+                    <h3><a href="https://github.com/lizkrznarich/gdi-python-2/blob/main/class11/django-tutorial.md">Python 2 Django tutorial</a></h3>
+                    <p>The tutorial will guide us through building a simple Django web app the displays the current weather based on the user's location.</p>
+                </section>
+                <section>
+                    <h3>Homework review</h3>
+                    <ul>
+                        <li>Basic Django setup <a href="https://github.com/lizkrznarich/gdi-python-2/blob/main/class11/django-tutorial.md#tutorial-build-a-web-app-with-django--replit">tutorial steps 1-3</a>!</li>
+                        <li>Repl example with completed Django setup: <a href="https://replit.com/@lizkrznarich/Python2WeatherAppStart">Python2WeatherAppStart</a></li>
+                        <li>Also, please register for an OpenWeather API key! (<a href="https://github.com/lizkrznarich/gdi-python-2/blob/main/class11/django-tutorial.md#configure-openweather-api-key">step 1 in Configure OpenWeather API key</a>)</li>
+                    </ul>
+                </section>
+                <section class="heading-only">
+                    <h2>Wrap-up</h2>
+                </section>
+                <section>
+                    <h3>We learned so much!</h3>
+                    <ul>
+                        <li>Reading/writing files
+                        <li>Working with files & folders
+                        <li>Argument parsing
+                        <li>Error handling
+                        <li>HTTP requests & APIs
+                        <li>Python frameworkds
+                    </ul>
+                </section>
+                <section class="heading-only">
+                    <h2>What's next?! 🎉 🐍</h2>
+                </section>
+                <section>
+                    <h3>Learning opps</h3>
+                    <ul>
+                        <li><a href="https://girldevelopit.com/events/details/girl-develop-it-python-presents-python-ii-cohort-6-class-series">GDI Python 2 Cohort (next session June 13-29)</a>
+                        <li><a href="https://realpython.com/learning-paths/">Real Python tutorials</a> are great
+                        <li>Udemy offers a wide variety of <a href="https://www.udemy.com/topic/python/">Python courses</a>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Next topics to explore</h3>
+                    <ul>
+                        <li>Custom classes (Object-oriented programming)
+                        <li>Decorators/higher order functions
+                        <li>Containerizing & deploying Python apps
+                        <li>Testing
+                    </ul>
+                </section>
+                <section>
+                    <h3>But really, you need to practice coding!</h3>
+                    <p>Hands-on project ideas:</p>
+                    <ul>
+                        <li><a href="https://www.freecodecamp.org/news/python-projects-for-beginners/">25 Python projects for beginners</a>
+                        <li><a href="https://realpython.com/tutorials/projects/">Real Python: Python projects</a>
+                    </ul>
+                </section>
+                <section class="heading-only">
+                    <h2>Thank you & happy coding!</h2>
+                </section>
 			</div>
 		</div>
-
-		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/dist/reveal.js"></script>Ex1
         <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.1.0/plugin/highlight/highlight.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.5/js/jsplumb.min.js"></script>
@@ -867,3 +308,4 @@
 		</script>
 	</body>
 </html>
+

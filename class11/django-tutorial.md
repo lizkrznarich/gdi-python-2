@@ -331,5 +331,94 @@ Our app works great, but it doesn't look so good. We'll add some basic styles us
 
 # Add a chart with Plotly
 
+[Plotly](https://plotly.com) developes a "low code" framework called [DASH](https://dash.plotly.com/) that allows easily building graphs/charts and complete dashboards to visualize data. DASH, in turn, uses the Python Flask web app framework.
+
+Plotly also makes its underlying code open source and publishes Python packages that allow you to create same types of charts/graphs in Python applications that don't use the full DASH framework.
+
+There are several different ways to build data visualizations using Plotly Python libraries. In this section, we'll use the [Plotly Graph Objects](https://plotly.com/python/graph-objects/) library to create a very simple bar chart using the temperature data returned by the OpenWeather API. We'll use "offline" plotting mode, which allows us to feed data directly into a graph object with no need for a Plotly account.
+
+We're only touching the very tip of the Plotly iceberg here! For (much) more information, see [Plotly docs](https://plotly.com/pytho). Tutorials point also has a nice [tutorial about creating differen types of charts with Graph Objects](https://www.tutorialspoint.com/plotly/plotly_bar_and_pie_chart.htm).
+
+1. To use Plotly, we first need to install it in our Replit environment. In the right sidebar, click **Packages**, search for Plotly in the window that opens, and click the **+** to install it.
+
+![](../images/replit-install-plotly.png)
+
+2. To make Django aware of our newly-installed package, we need to restart it. To restart, click the **Stop** button at the top of the screen, then click the **Run** button.
+
+3. In your **views.py** file add the following import statements beneath the existing imports.
+
+        from plotly.offline import plot
+        import plotly.graph_objs as go
+
+4. In **views.py**, add a new function that creates a bar chart with some hard-coded data by copying and pasting the code below. By passing ```output_type='div'``` as an argument to the ```plot()``` function, the entire bar chart will be returned as HTML, which we can pass to our template.
+
+        def get_chart():
+            temp_types = ['High', 'Low', 'Feels like']
+            temps = [35, 17, 23]
+            data = [go.Bar(x=temp_types, y=temps)]
+            fig = go.Figure(data=data)
+            return plot(fig, output_type='div')
+
+5. Update your **index()** function to call the get_chart() function and add pass the returned chart code to the template.
+
+        def index(request):
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+            location = get_location_from_ip(ip)
+            weather = get_weather_from_location(location)
+            chart = get_chart()
+
+            return render(request, 'index.html', {
+                'ip': ip,
+                'location': location,
+                'weather': weather,
+                'chart': chart
+            })
+
+6. In **index.html**, add the lines below beneath the closing ```</table>``` tag to display the chart. By default, Django templates interpret string variables as text (not code). To parse the value of the ```chart``` variable as raw HTML markup, we need to add ```{% autoescape off %}{% endautoescape %}``` template tags ([autoescape docs](https://docs.djangoproject.com/en/4.1/ref/templates/builtins/#autoescape)).
+
+        {% autoescape off %}
+        {{ chart }}
+        {% endautoescape %}
+
+7. After refreshing your **Webview**, you should see a chart appear
+
+![](../images/django-chart.png)
+
+8. Let's update our **get_chart()** function to use dynamic data from the OpenWeather API. In **views.py**, we have an existing variable ```weather``` that contains the OpenWeather API response. Update your code to pass ```weather``` to ```get_chart()```.
+
+        ...
+        def get_chart(weather):
+        ...
+        chart = get_chart(weather)
+        ...
+
+9. In your **get_chart()** function, replace **temps** with the code below.
+
+        temps = [
+            weather['main']['temp_max'],
+            weather['main']['temp_min'],
+            weather['main']['feels_like']
+        ]
+
+10. After refreshing your **Webview**, you should see the chart updated with the dynamic values.
+
+![](../images/django-chart-dynamic.png)
+
+# Bonus activity: Add weather icons
+
+Each OpenWeather API response includes a code for an icon that represents the current weather condition. You can get the image that corresponds to each code from OpenWeather and add display it in your application, along with the weather data. See the [Weather Icons documentation](https://openweathermap.org/weather-conditions)
+
+Try adding the corresponding weather icon to your Django app!
+
+
+
+
+
+
+
 
 
